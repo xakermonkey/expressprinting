@@ -3,5 +3,6 @@ from django.urls import path
 
 
 urlpatterns = [
-    path("user", userForm, name='user'),
+    path("<int:pk>", userForm, name='user'),
+    path('create_order', create_order, name="create_order")
 ]

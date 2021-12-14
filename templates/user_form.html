@@ -1,29 +1,30 @@
 {% extends 'index.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ pos.name }}{% endblock %}
 
 {% block content %}
-{#    <nav class="nav">#}
-{#        <div class="nav-left">#}
-{#            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>#}
-{#            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"#}
-{#                                                                     style="width: 60px; "></a>#}
-{#        </div>#}
-{#        <div class="nav-right">#}
-{#            <label class="semi f-18 black">Владислав Старун</label>#}
-{#            <a class="" href="#" style="color: #3333FF">Настройки</a>#}
-{#        </div>#}
-{#    </nav>#}
+    {#    <nav class="nav">#}
+    {#        <div class="nav-left">#}
+    {#            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>#}
+    {#            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"#}
+    {#                                                                     style="width: 60px; "></a>#}
+    {#        </div>#}
+    {#        <div class="nav-right">#}
+    {#            <label class="semi f-18 black">Владислав Старун</label>#}
+    {#            <a class="" href="#" style="color: #3333FF">Настройки</a>#}
+    {#        </div>#}
+    {#    </nav>#}
 
     <div style="display: flex; margin-top: 40%;justify-content: center;">
-        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать</h2>
+        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать в {{ pos.name }}</h2>
         {#                <label class="semi f-16 grey">Выберите необходимые для возврата вещи</label>#}
     </div>
     <style>
         .input-group {
             min-height: 58px;
         }
+
         .form-control {
             background-color: #23232A14;
             border-radius: 12px;
@@ -37,14 +38,20 @@
     </style>
     <div style="padding: 4%">
         <div style="padding: 5%; background: #FFFFFF;box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
-            <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputGroupFile02">
+            <div id="file-input">
+                {% csrf_token %}
+                <div id="file1">
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" accept="application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02">
+                    </div>
+                    <div class="input-group mb-3 ls">
+                        <span class="input-group-text">Количество копий</span>
+                        <input type="text" name="copy1" value="1" class="form-control">
+                    </div>
+                </div>
             </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text">Количество копий</span>
-                <input type="text" class="form-control" placeholder="1">
-            </div>
-            <button id="" class="btn btn-next bold">Отправить на печать</button>
+            <button id="send" class="btn btn-next bold">Отправить на печать</button>
         </div>
     </div>
 
@@ -53,4 +60,72 @@
 
 
 {% block script %}
+
+    <script>
+        jQuery(function () {
+            var massFile = {}
+            var count = 1
+            $('body').on('change', 'input[type="file"]', function () {
+
+                var name = $(this).attr('name')
+                console.log(typeof massFile[name] !== 'undefined'  && $(this).val() === "" && count !== 1)
+                if (typeof massFile[name] !== 'undefined'  && $(this).val() === "" && count !== 1) {
+                    $('#file'+(count)).remove()
+                    delete massFile[name];
+                    count--;
+                }
+                else if (typeof massFile[name] !== "undefined" && $(this).val() != "") {
+                    massFile[name] = $(this).val();
+                }
+                else if (typeof massFile[name] === 'undefined'){
+                    massFile[name] = $(this).val();
+                    count++;
+                    var html = `<hr/><div id="file${count}" ><div class="input-group mb-3">
+                            <input type="file" class="form-control" accept="application/pdf,application/msword,
+                                  application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                name="file${count}">
+                        </div>
+                        <div class="input-group mb-3 ls">
+                            <span class="input-group-text">Количество копий</span>
+                            <input type="text" name="copy${count}" value="1" class="form-control">
+                        </div></div>`;
+                $('#file'+(count-1)).after(html);
+            }
+                console.log(massFile)
+
+        });
+
+        $('#send').click(function () {
+            var formData = new FormData();
+            for (var key in massFile) {
+                console.log($('input[name="' + key + '"]')[0].files[0])
+                formData.append(key, $('input[name="' + key + '"]')[0].files[0])
+             }
+
+            $('input[type="text"]').each(function () {
+               formData.append($(this).attr('name'), $(this).val())
+            });
+
+            formData.append("csrfmiddlewaretoken", $('input[name="csrfmiddlewaretoken"]').val())
+
+            formData.append('pos', {{ pos.id }})
+
+            $.ajax({
+			type: "POST",
+			url: 'create_order',
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: formData,
+			dataType : 'json',
+			success: function(data){
+
+            }
+		});
+
+        });
+
+
+        });
+    </script>
 {% endblock %}
