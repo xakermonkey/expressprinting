@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+{#    <nav class="nav">#}
+{#        <div class="nav-left">#}
+{#            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>#}
+{#            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"#}
+{#                                                                     style="width: 60px; "></a>#}
+{#        </div>#}
+{#        <div class="nav-right">#}
+{#            <label class="semi f-18 black">Владислав Старун</label>#}
+{#            <a class="" href="#" style="color: #3333FF">Настройки</a>#}
+{#        </div>#}
+{#    </nav>#}
+
+    <div style="display: flex; margin-top: 40%;justify-content: center;">
+        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать</h2>
+        {#                <label class="semi f-16 grey">Выберите необходимые для возврата вещи</label>#}
+    </div>
+    <style>
+        .input-group {
+            min-height: 58px;
+        }
+        .form-control {
+            background-color: #23232A14;
+            border-radius: 12px;
+        }
+
+        .input-group-text {
+            border: 0;
+            border-radius: 12px;
+            background-color: #23232A14;
+        }
+    </style>
+    <div style="padding: 4%">
+        <div style="padding: 5%; background: #FFFFFF;box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Количество копий</span>
+                <input type="text" class="form-control" placeholder="1">
+            </div>
+            <button id="" class="btn btn-next bold">Отправить на печать</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block script %}
+{% endblock %}

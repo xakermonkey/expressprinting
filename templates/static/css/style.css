@@ -1,0 +1,730 @@
+body, .btn {
+    font-family: Inter;
+}
+
+.nav {
+    justify-content: space-between;
+}
+
+.nav-link {
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    padding: 1% 0 0 1%
+}
+
+.nav-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1% 1% 0 0
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.middle {
+    font-weight: 600;
+}
+
+.semi {
+    font-weight: 400;
+}
+
+.bg-grey {
+    background: #f9f9fa
+}
+
+.blue {
+    color: #33f
+}
+
+.grey {
+    color: #8b8b8b
+}
+
+.black {
+    color: #0C0C0D
+}
+
+.center {
+    display: flex;
+    justify-content: center
+}
+
+a {
+    text-decoration: none;
+}
+
+h2 {
+    margin-bottom: 0;
+}
+/*============================================Общие=====================================================*/
+
+
+
+/*=================================================================================================*/
+.divform {
+    background: #ffffff;
+    width: 22%;
+    border-radius: 1rem;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    padding: 48px;
+    margin-top: 5%;
+}
+
+.divform_error {
+    background: #F9D2D2;
+    width: 22%;
+    border-radius: 1rem;
+    /*box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);*/
+    padding: 23px;
+    margin-top: 2%;
+}
+
+
+.btn-next {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.btn-next:hover {
+    color: white;
+}
+
+.btn-down {
+    width: 22%;
+    padding: 0.9%;
+    border-radius: 12px;
+    background-color: #DFDFE1;
+    color: #0C0C0D;
+    margin-top: 12%;
+    font-size: 14px;
+}
+
+.btn-address {
+    width: 100%;
+    padding: 3%;
+    border-radius: 12px;
+    background-color: #DFDFE1;
+    color: #0C0C0D;
+    margin-top: 2%;
+    font-size: 14px;
+}
+
+
+
+.btn-down:hover {
+    color: black;
+}
+
+.btn-address:hover {
+    color: black;
+}
+
+.f-16 {
+    font-size: 1rem;
+}
+
+.f-18 {
+    font-size: 1.125rem;
+}
+
+.f-32 {
+    font-size: 2rem;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.text-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 5%;
+    width: 100%;
+}
+
+.form-control {
+    border: 0;
+}
+
+
+.arrow {
+    position: absolute;
+    width: 104px;
+    left: 32px;
+    top: 32px;
+    border-radius: 300px;
+}
+
+
+.btngroup {
+    display: flex;
+    justify-content: space-around;
+    padding: 4px;
+    width: 625px;
+    height: 64px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.btngroup button {
+    width: 100%;
+    font-size: 17px;
+}
+
+.btngroup .selected {
+    background-color: #3333FF;
+    border-radius: 12px;
+    color: white
+}
+
+/*Заполнить профиль Личные данные*/
+.divprof {
+    width: 30%;
+    margin: auto;
+}
+
+.divprof .text-input-big {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 5%;
+    width: 100%;
+}
+
+.divprof .text-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 3%;
+    width: 100%;
+}
+
+.divprof .number-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 14%;
+    width: 100%;
+}
+/*=================Адреса доставки (поля добавления)======================*/
+.div-add-addresses {
+    max-width: 576px;
+}
+
+.div-add-addresses .text-input-big {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 5%;
+    width: 100%;
+}
+
+.div-add-addresses .text-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 3%;
+    width: 100%;
+}
+
+.div-add-addresses .number-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 14%;
+    width: 100%;
+}
+/*====================================================================*/
+
+.btn-save {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    max-width: 327px;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin: auto;
+}
+
+.divprof .form-label {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#lk .btn-save {
+    margin-top: 22.6%;
+}
+#doc .btn-save {
+    margin-top: 6.57%;
+}
+
+/*=============================Адреса доставки (список ранне добавленных)=========================================*/
+.div-my-addresses {
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 5.56%;
+    max-width: 576px;
+}
+
+.div-my-addresses .form-check-input {
+    background-color: #23232A14;
+    border: 0;
+}
+
+.div-my-addresses .form-check-input:checked {
+    background-color: #3333FF;
+    border: 0;
+}
+.div-my-addresses .form-check {
+    margin-bottom:4.7%;
+}
+.div-my-addresses .form-check-input {
+    background-image: none;width: 1.5rem;height: 1.5rem;
+}
+.div-my-addresses .form-check-label {
+    margin-left: 2%;
+}
+#address .btn-save {
+    margin: 13.86% auto auto;
+}
+/*======================================================================*/
+
+
+.btn-group-item {
+    display: flex;
+    justify-content: space-around;
+    padding: 4px;
+    width: 26%;
+    height: 64px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.btn-group-item .selected {
+    background-color: #3333FF;
+    border-radius: 12px;
+    color: white;
+    /*width: 34%;*/
+}
+
+.main-my-item {
+    display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: center
+}
+#go-arrange {
+    display: flex;
+    margin: 3.334% auto auto;
+    padding: 1rem;
+    max-width: 357px;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.div-my-item {
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    width: 32%;
+    padding: 1.7%;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+.div-my-item .row {
+    --bs-gutter-x: 0;
+}
+
+.get-code {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin: auto;
+    margin-top: 5%;
+}
+
+.modal-code .text-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 3%;
+    width: 100%;
+}
+
+.center .form-label {
+    margin-bottom: 0;
+}
+
+.div-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 2.3% 4.6% 2.3% 4.6%;
+    width: 100%;
+}
+
+.div-input .form-check-input {
+    background-color: #23232a14;
+}
+
+.div-input .form-check-input:checked {
+    background-color: #3333FF;
+}
+
+
+
+/*=============   Выбор способа доставки*/
+.div-delivery-method-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 3.34%;
+}
+
+.div-delivery-method {
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23.4%;
+    padding: 3.1% 0;
+}
+
+.div-delivery-method label {
+    margin-bottom: 16px;
+}
+
+.div-delivery-method img {
+    margin-bottom: 16px;
+}
+
+.div-delivery-method .btn {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+/*=================================================================*/
+
+
+/*==================================================    Выбор компании доставки*/
+.div-delivery-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start
+}
+
+.div-choice-delivery-company {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    max-width: 576px;
+    padding: 5.04%;
+    /*margin-right: 1.67%;*/
+}
+
+.div-delivery-company {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5.3%;
+}
+
+.delivery-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.delivery-price {
+    display: flex;
+    justify-content: flex-end;
+    width: 25%
+}
+
+.div-choice-delivery-company .form-check-input:checked {
+    background-color: #3333FF;
+    /*border-color: #3333FF;*/
+}
+
+.form-check-input:checked[type=radio] {
+    background-image: none;
+}
+
+.div-choice-delivery-company .form-check-input {
+    background-image: none;
+    background-color: #23232a14;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    margin-top: 0;
+}
+
+/*=================================================================*/
+
+/*==========================Модальное окно добавления адреса=======================================*/
+.modal-address {
+    margin: auto;
+}
+
+.modal-address .text-input-big {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 5%;
+    width: 100%;
+}
+
+.modal-address .text-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 3%;
+    width: 100%;
+}
+
+.modal-address .number-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 14%;
+    width: 100%;
+}
+
+/*=================================================================*/
+
+
+/*==================================================    Прайсы подсчет*/
+.div-transport-company {
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+}
+
+.div-price {
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 576px;
+    height: fit-content;
+    padding: 1.7% 1.7%;
+}
+
+.div-price-item {
+    margin-bottom: 4.2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div-price-item .in-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-switch .form-check-input {
+    width: 3em;
+    height: 1.5em;
+    margin-left: 0;
+    margin-top: 0;
+    border: none;
+    background-color: #23232A14;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2323232A14'/%3e%3c/svg%3e");
+}
+
+.form-switch .form-check-input:checked {
+    background-color: #23232A14;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%233333FF'/%3e%3c/svg%3e");
+}
+
+.line {
+    border: 1px solid rgba(35, 35, 42, 0.08);
+    margin-bottom: 4.2%;
+}
+
+.div-price .btn {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+/*=================================================================*/
+
+/*==================================================    Прайсы подсчет ЗА 300*/
+
+.miles-input-group {
+    min-height: 56px
+}
+
+.miles-input-group img {
+    border: 0;
+    border-radius: 12px 0 0 12px;
+    border-right-color: #F9F9FA;
+    border-right-width: 1px;
+    border-right-style: inset;
+    text-align: start;
+    white-space: nowrap;
+    background-color: #23232A14;
+}
+
+.miles-input-group input {
+    background-color: #23232A14;
+}
+
+.miles-input-group span {
+    color: #0C0C0D7A;
+    border-radius: 0 12px 12px 0;
+    text-align: start;
+    white-space: nowrap;
+    background-color: #23232A14;
+    border: 0;
+}
+
+.code-input-group {
+    min-height: 56px
+}
+
+.code-input-group img {
+    color: #0C0C0D7A;
+    border-radius: 0 12px 12px 0;
+    text-align: start;
+    white-space: nowrap;
+    background-color: #23232A14;
+    border: 0;
+}
+.code-input-group span {
+    color: #0C0C0D7A;
+    border-radius: 0 12px 12px 0;
+    text-align: start;
+    white-space: nowrap;
+    background-color: #23232A14;
+    border: 0;
+}
+
+.code-input-group input {
+    border-radius: 12px 0 0 12px;
+    display: block;
+    background-color: #23232A14;
+    border: 0;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: 0;
+}
+
+/*=================================================================*/
+
+.new-kh .btn {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.input-comment-courier {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 2.52%;
+    max-width: 576px;
+}
+
+
+.div-address {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    max-width: 576px;
+    padding: 5.04%;
+    margin-top: 5.04%
+}
+
+/*============================================================*/
+.div-order-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 576px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    /*width: 30%;*/
+    padding: 5.56%;
+    /*margin-right: 1rem;*/
+    /*margin-top: 1rem;*/
+}
+
+.div-order-composition {
+    display: flex;
+    align-items: flex-start;
+}
+
+.div-order-info .btn {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.line-condition {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4.78%;
+}
+
+.div-order-composition .div-my-item {
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    width: 100%;
+    min-width: 576px;
+    padding: 5.56%;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 5.56%;
+}
+
+/*============================================================*/
