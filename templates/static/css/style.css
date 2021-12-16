@@ -63,6 +63,38 @@ h2 {
     margin-bottom: 0;
 }
 /*============================================Общие=====================================================*/
+/*============================================Модальное окно=====================================================*/
+.modal-right {
+  padding-right: 0 !important; }
+  .modal-right .modal-dialog {
+    margin: 0 auto;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100%;
+    max-width: 640px; }
+  .modal-right .modal-content {
+    min-height: 100%; }
+  .modal-right .modal-header {
+    flex: 0 0 100px; }
+    @media (max-width: 1439px) {
+      .modal-right .modal-header {
+        flex: 0 0 90px; } }
+    @media (max-width: 1199px) {
+      .modal-right .modal-header {
+        flex: 0 0 80px; } }
+    @media (max-width: 767px) {
+      .modal-right .modal-header {
+        flex: 0 0 70px; } }
+  .modal-right .modal-footer {
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0; }
+  .modal-right.modal.fade .modal-dialog {
+    transform: translate(25%, 0); }
+  .modal-right.modal.show .modal-dialog {
+    transform: translate(0, 0); }
+/*=================================================================================================*/
 
 
 
@@ -341,8 +373,8 @@ input[type=number]::-webkit-outer-spin-button {
     background: #FFFFFF;
     box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
     border-radius: 16px;
-    width: 32%;
-    padding: 1.7%;
+    /*width: 32%;*/
+    padding: 2.2%;
     margin-right: 1rem;
     margin-top: 1rem;
 }
@@ -381,6 +413,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 12px;
     padding: 2.3% 4.6% 2.3% 4.6%;
     width: 100%;
+    margin-top: 4.7%;
 }
 
 .div-input .form-check-input {
@@ -448,8 +481,8 @@ input[type=number]::-webkit-outer-spin-button {
     background: #FFFFFF;
     box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
     border-radius: 16px;
-    max-width: 576px;
-    padding: 5.04%;
+    min-width: 576px;
+    padding: 5.56%;
     /*margin-right: 1.67%;*/
 }
 

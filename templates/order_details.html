@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <style>
+        .nav-title {
+            width: 320px;
+            color: #0C0C0D7A;
+            font-size: 32px;
+            font-weight: 600;
+        }
+    </style>
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
+            <a href="#"><img src="{% static 'images/arrow_back.svg' %}"
+                                                                     style="width: 60px; "></a>
+        </div>
+
+    </nav>
+
+    <div id="pick-up-ls" style="display: block">
+        <div align="center" style="margin-top: 0.94%">
+            <h2 class="middle" style="color: black;">Печать</h2>
+        </div>
+
+        <div style="display: flex;justify-content: center;margin-top: 2.5%">
+            <div style="display: flex;flex-direction: column;margin-right: 2.5%">
+                {#================================================== Схема==================#}
+                <div align="center" class="div-choice-delivery-company" style="align-items: flex-start">
+                    <label class="semi f-16 grey">Файлы</label>
+                    <div class="div-input">
+                        <div class=""
+                             style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                            <div style="display: flex; flex-direction: column;align-items: flex-start">
+                                <label class="semi f-18 black">Документы 1.doc</label>
+                                <label class="semi f-16 grey">3 стр.</label></div>
+                            <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">Печать</a>
+                        </div>
+                    </div>
+                    <div class="div-input">
+                        <div class="" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                            <div style="display: flex; flex-direction: column;align-items: flex-start">
+                                <label class="semi f-18 black">jkvenjcnr934l-dsakm.pdf</label>
+                                <label class="semi f-16 grey">4 стр.</label></div>
+                            <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">Печать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {#==================================================    Прайсы подсчет ЗА 300#}
+            <div class="div-price">
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Общее количество страниц</label>
+                    <h2 class="middle" style="color: black;">7</h2>
+                </div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Тариф</label>
+                    <h2 class="middle" style="color: black;">50 ₽ страница</h2>
+                </div>
+                <div class="line"></div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Итоговая стоимость</label>
+                    <h2 class="middle" style="color: black;">350 ₽</h2>
+                </div>
+                <a id="pay-pick-up-ls" href="#" class="btn bold">Завершить</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block script %}
+{% endblock %}

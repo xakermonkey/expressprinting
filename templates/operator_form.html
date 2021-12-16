@@ -1,0 +1,140 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <style>
+        .nav-title {
+            color: #0C0C0D7A;
+            font-size: 32px;
+            font-weight: 600;
+        }
+    </style>
+    <nav class="nav">
+        <div class="nav-left" style="width: 25%">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
+        </div>
+
+    </nav>
+
+    {#==========================Модальное окно MILEONAIR=============================#}
+    <div class="modal fade modal-right" id="exampleModalRight2" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalRight2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="" style="display: flex;justify-content: space-between">
+                    <img type="button" class="close" data-dismiss="modal" aria-label="Close"
+                         style="margin-top: 6%; margin-left: 6%" src="{% static 'images/close_modal.svg' %}">
+                    <h2 class="middle" style="color: black;margin-top: 6%;margin-right:29%">Подтверждение </h2>
+                </div>
+                <div class="" style="padding-left: 6%; padding-right: 6%">
+                    <form class="modal-code" style="margin-top: 11%">
+                        <div style="margin-bottom: 4.2%;">
+                            <label class="form-label semi f-16 grey" style="">Код клиента</label>
+                            <div class="code-input-group input-group" style="">
+                                <input type="text" class="form-control" placeholder="8974"
+                                       aria-describedby="basic-addon1">
+                                <span class="input-group-text" style="color:#D50029;">Неверный код</span>
+                            </div>
+                        </div>
+                        <button id="btn_doc" disabled class="btn get-code bold">Перейти к печати</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#==========================================================================================#}
+
+    <div id="in-storage">
+        <div align="center">
+            <h2 class="middle" style="color: black;margin-bottom: 1rem;">Панель заказов<br>
+                экспресс печати</h2>
+            <label class="semi f-16 grey">Выберите необходимый заказ</label>
+        </div>
+        <div class="main-my-item">
+            <div class="div-my-item">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <label class="semi f-16 grey">Номер заказа</label>
+                            <label class="semi f-18 black">161221-1</label>
+                        </div>
+                        <div class="row" style="margin-top: 2%">
+                            <label class="semi f-16 grey">Дата создания</label>
+                            <label class="semi f-18 black">16.12.2021</label>
+                        </div>
+                    </div>
+                    <div class="col" style="display: flex; align-items: center">
+                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
+                                data-target="#exampleModalRight2">Выбрать
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="div-my-item">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <label class="semi f-16 grey">Номер заказа</label>
+                            <label class="semi f-18 black">161221-1</label>
+                        </div>
+                        <div class="row" style="margin-top: 2%">
+                            <label class="semi f-16 grey">Дата создания</label>
+                            <label class="semi f-18 black">16.12.2021</label>
+                        </div>
+                    </div>
+                    <div class="col" style="display: flex; align-items: center">
+                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
+                                data-target="#exampleModalRight2">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+            <div class="div-my-item">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <label class="semi f-16 grey">Номер заказа</label>
+                            <label class="semi f-18 black">161221-1</label>
+                        </div>
+                        <div class="row" style="margin-top: 2%">
+                            <label class="semi f-16 grey">Дата создания</label>
+                            <label class="semi f-18 black">16.12.2021</label>
+                        </div>
+                    </div>
+                    <div class="col" style="display: flex; align-items: center">
+                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
+                                data-target="#exampleModalRight2">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+            <div class="div-my-item">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <label class="semi f-16 grey">Номер заказа</label>
+                            <label class="semi f-18 black">161221-1</label>
+                        </div>
+                        <div class="row" style="margin-top: 2%">
+                            <label class="semi f-16 grey">Дата создания</label>
+                            <label class="semi f-18 black">16.12.2021</label>
+                        </div>
+                    </div>
+                    <div class="col" style="display: flex; align-items: center">
+                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
+                                data-target="#exampleModalRight2">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{% endblock %}
