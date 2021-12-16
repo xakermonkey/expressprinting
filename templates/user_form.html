@@ -4,21 +4,26 @@
 {% block title %}{{ pos.name }}{% endblock %}
 
 {% block content %}
-    {#    <nav class="nav">#}
-    {#        <div class="nav-left">#}
-    {#            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>#}
-    {#            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"#}
-    {#                                                                     style="width: 60px; "></a>#}
-    {#        </div>#}
-    {#        <div class="nav-right">#}
-    {#            <label class="semi f-18 black">Владислав Старун</label>#}
-    {#            <a class="" href="#" style="color: #3333FF">Настройки</a>#}
-    {#        </div>#}
-    {#    </nav>#}
+    <style>
+    @media screen and (max-width: 980px) {
+        .nav-title {
+            color: #0C0C0D7A;
+            font-size: 26px;
+            font-weight: 600;
+            margin-left: 12px;
+            width: 240px;
+        }
+    }
+    </style>
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
+        </div>
+    </nav>
 
-    <div style="display: flex; margin-top: 40%;justify-content: center;">
+    <div align="center" style="margin-top: 5%">
         <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать в {{ pos.name }}</h2>
-        {#                <label class="semi f-16 grey">Выберите необходимые для возврата вещи</label>#}
     </div>
     <style>
         .input-group {
@@ -43,7 +48,7 @@
                 <div id="file1">
                     <div class="input-group mb-3">
                         <input type="file" class="form-control" accept="application/pdf,application/msword,
-  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02">
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02" style="padding: 1rem 0.75rem;">
                     </div>
                     <div class="input-group mb-3 ls">
                         <span class="input-group-text">Количество копий</span>
@@ -54,6 +59,16 @@
             <button id="send" class="btn btn-next bold">Отправить на печать</button>
         </div>
     </div>
+
+    <div style="display: flex;flex-direction: column;padding: 4%;">
+                {#================================================== Схема==================#}
+                <div align="center" class="div-choice-delivery-company">
+                    <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>
+                    <label class="bold f-16 black" style="margin-bottom: 4.64%">Терминал А, 2 этаж.<br>
+                        Возле стойки информации.</label>
+                    <img src="{% static 'images/scheme.png' %}">
+                </div>
+            </div>
 
 {% endblock %}
 
