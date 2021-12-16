@@ -21,7 +21,7 @@ class POS(models.Model):
 
 class Rates(models.Model):
     pos = models.ForeignKey(POS, on_delete=models.CASCADE, verbose_name="Точка печати")
-    date = models.DateTimeField()
+    date = models.DateField()
     price_per_list = models.DecimalField(decimal_places=2,max_digits=5, verbose_name="Цена за лист")
 
 
@@ -35,14 +35,14 @@ class Rates(models.Model):
 
 
 class Order(models.Model):
-    date_create = models.DateTimeField(verbose_name="Дата создания заказа")
-    date_print = models.DateTimeField(verbose_name="Дата печати")
+    date_create = models.DateField(verbose_name="Дата создания заказа")
+    date_print = models.DateField(verbose_name="Дата печати", blank=True, null=True)
     number = models.CharField(max_length=255, verbose_name="Номер заказа")
     code = models.IntegerField(verbose_name="Код")
     pos = models.ForeignKey(POS, on_delete=models.CASCADE, verbose_name='Точка в которой заказали печать')
     price_per_list = models.DecimalField(decimal_places=2,max_digits=5, verbose_name="Цена за лист")
-    list_ount = models.IntegerField(verbose_name="Общее количество страниц")
-    amount = models.DecimalField(decimal_places=2,max_digits=9, verbose_name="Сумма заказа")
+    list_count = models.IntegerField(verbose_name="Общее количество страниц", null=True, blank=True)
+    amount = models.DecimalField(decimal_places=2,max_digits=9, verbose_name="Сумма заказа", null=True, blank=True)
     documents = models.ManyToManyField('Doc', related_name='order')
 
     def __str__(self):
