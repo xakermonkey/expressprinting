@@ -21,7 +21,7 @@ def success_create(request, pk, date, num):
                                                    month=int(date.split("-")[1]),
                                                    year=int(date.split("-")[2])),
                               number=num)
-    return render(request, 'success_create.html', {'num': order.number, "code": order.code})
+    return render(request, 'success_create.html', {'num': order.number, "code": str(order.code)})
 
 
 def pages_count(path):
