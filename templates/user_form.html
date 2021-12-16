@@ -5,15 +5,15 @@
 
 {% block content %}
     <style>
-    @media screen and (max-width: 980px) {
-        .nav-title {
-            color: #0C0C0D7A;
-            font-size: 26px;
-            font-weight: 600;
-            margin-left: 12px;
-            width: 240px;
+        @media screen and (max-width: 980px) {
+            .nav-title {
+                color: #0C0C0D7A;
+                font-size: 26px;
+                font-weight: 600;
+                margin-left: 12px;
+                width: 240px;
+            }
         }
-    }
     </style>
     <nav class="nav">
         <div class="nav-left">
@@ -48,7 +48,8 @@
                 <div id="file1">
                     <div class="input-group mb-3">
                         <input type="file" class="form-control" accept="application/pdf,application/msword,
-  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02" style="padding: 1rem 0.75rem;">
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02"
+                               style="padding: 1rem 0.75rem;">
                     </div>
                     <div class="input-group mb-3 ls">
                         <span class="input-group-text">Количество копий</span>
@@ -61,14 +62,14 @@
     </div>
 
     <div style="display: flex;flex-direction: column;padding: 4%;">
-                {#================================================== Схема==================#}
-                <div align="center" class="div-choice-delivery-company">
-                    <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>
-                    <label class="bold f-16 black" style="margin-bottom: 4.64%">Терминал А, 2 этаж.<br>
-                        Возле стойки информации.</label>
-                    <img src="{% static 'images/scheme.png' %}">
-                </div>
-            </div>
+        {#================================================== Схема==================#}
+        <div align="center" class="div-choice-delivery-company">
+            <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>
+            <label class="bold f-16 black" style="margin-bottom: 4.64%">Терминал А, 2 этаж.<br>
+                Возле стойки информации.</label>
+            <img src="{% static 'images/scheme.png' %}">
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -83,16 +84,14 @@
             $('body').on('change', 'input[type="file"]', function () {
 
                 var name = $(this).attr('name')
-                console.log(typeof massFile[name] !== 'undefined'  && $(this).val() === "" && count !== 1)
-                if (typeof massFile[name] !== 'undefined'  && $(this).val() === "" && count !== 1) {
-                    $('#file'+(count)).remove()
+                console.log(typeof massFile[name] !== 'undefined' && $(this).val() === "" && count !== 1)
+                if (typeof massFile[name] !== 'undefined' && $(this).val() === "" && count !== 1) {
+                    $('#file' + (count)).remove()
                     delete massFile[name];
                     count--;
-                }
-                else if (typeof massFile[name] !== "undefined" && $(this).val() != "") {
+                } else if (typeof massFile[name] !== "undefined" && $(this).val() != "") {
                     massFile[name] = $(this).val();
-                }
-                else if (typeof massFile[name] === 'undefined'){
+                } else if (typeof massFile[name] === 'undefined') {
                     massFile[name] = $(this).val();
                     count++;
                     var html = `<hr/><div id="file${count}" ><div class="input-group mb-3">
@@ -104,41 +103,41 @@
                             <span class="input-group-text">Количество копий</span>
                             <input type="text" name="copy${count}" value="1" class="form-control">
                         </div></div>`;
-                $('#file'+(count-1)).after(html);
-            }
+                    $('#file' + (count - 1)).after(html);
+                }
                 console.log(massFile)
 
-        });
-
-        $('#send').click(function () {
-            var formData = new FormData();
-            for (var key in massFile) {
-                console.log($('input[name="' + key + '"]')[0].files[0])
-                formData.append(key, $('input[name="' + key + '"]')[0].files[0])
-             }
-
-            $('input[type="text"]').each(function () {
-               formData.append($(this).attr('name'), $(this).val())
             });
 
-            formData.append("csrfmiddlewaretoken", $('input[name="csrfmiddlewaretoken"]').val())
+            $('#send').click(function () {
+                var formData = new FormData();
+                for (var key in massFile) {
+                    console.log($('input[name="' + key + '"]')[0].files[0])
+                    formData.append(key, $('input[name="' + key + '"]')[0].files[0])
+                }
 
-            formData.append('pos', {{ pos.id }})
+                $('input[type="text"]').each(function () {
+                    formData.append($(this).attr('name'), $(this).val())
+                });
 
-            $.ajax({
-			type: "POST",
-			url: 'create_order',
-			cache: false,
-			contentType: false,
-			processData: false,
-			data: formData,
-			dataType : 'json',
-			success: function(data){
-                document.location.href +=  '/success_create/' + data.date + '/' + data.num
-            }
-		});
+                formData.append("csrfmiddlewaretoken", $('input[name="csrfmiddlewaretoken"]').val())
 
-        });
+                formData.append('pos', {{ pos.id }})
+
+                $.ajax({
+                    type: "POST",
+                    url: 'create_order',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    dataType: 'json',
+                    success: function (data) {
+                        document.location.href += '/success_create/' + data.date + '/' + data.num
+                    }
+                });
+
+            });
 
 
         });

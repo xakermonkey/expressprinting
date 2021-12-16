@@ -62,46 +62,70 @@ a {
 h2 {
     margin-bottom: 0;
 }
+
 /*============================================Общие=====================================================*/
 /*============================================Модальное окно=====================================================*/
 .modal-right {
-  padding-right: 0 !important; }
-  .modal-right .modal-dialog {
+    padding-right: 0 !important;
+}
+
+.modal-right .modal-dialog {
     margin: 0 auto;
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
     height: 100%;
-    max-width: 640px; }
-  .modal-right .modal-content {
-    min-height: 100%; }
-  .modal-right .modal-header {
-    flex: 0 0 100px; }
-    @media (max-width: 1439px) {
-      .modal-right .modal-header {
-        flex: 0 0 90px; } }
-    @media (max-width: 1199px) {
-      .modal-right .modal-header {
-        flex: 0 0 80px; } }
-    @media (max-width: 767px) {
-      .modal-right .modal-header {
-        flex: 0 0 70px; } }
-  .modal-right .modal-footer {
+    max-width: 640px;
+}
+
+.modal-right .modal-content {
+    min-height: 100%;
+}
+
+.modal-right .modal-header {
+    flex: 0 0 100px;
+}
+
+@media (max-width: 1439px) {
+    .modal-right .modal-header {
+        flex: 0 0 90px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .modal-right .modal-header {
+        flex: 0 0 80px;
+    }
+}
+
+@media (max-width: 767px) {
+    .modal-right .modal-header {
+        flex: 0 0 70px;
+    }
+}
+
+.modal-right .modal-footer {
     justify-content: center;
     flex-grow: 0;
-    flex-shrink: 0; }
-  .modal-right.modal.fade .modal-dialog {
-    transform: translate(25%, 0); }
-  .modal-right.modal.show .modal-dialog {
-    transform: translate(0, 0); }
+    flex-shrink: 0;
+}
+
+.modal-right.modal.fade .modal-dialog {
+    transform: translate(25%, 0);
+}
+
+.modal-right.modal.show .modal-dialog {
+    transform: translate(0, 0);
+}
+
 /*=================================================================================================*/
 .nav-title {
-            color: #0C0C0D7A;
-            font-size: 32px;
-            font-weight: 600;
+    color: #0C0C0D7A;
+    font-size: 32px;
+    font-weight: 600;
     margin-left: 5%;
     width: 300px;
-        }
+}
 
 
 /*=================================================================================================*/
@@ -133,6 +157,7 @@ h2 {
     box-sizing: border-box;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
+
 .btn-next:hover {
     color: white;
 }
@@ -156,7 +181,6 @@ h2 {
     margin-top: 2%;
     font-size: 14px;
 }
-
 
 
 .btn-down:hover {
@@ -256,6 +280,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 14%;
     width: 100%;
 }
+
 /*=================Адреса доставки (поля добавления)======================*/
 .div-add-addresses {
     max-width: 576px;
@@ -281,6 +306,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 14%;
     width: 100%;
 }
+
 /*====================================================================*/
 
 .btn-save {
@@ -305,6 +331,7 @@ input[type=number]::-webkit-outer-spin-button {
 #lk .btn-save {
     margin-top: 22.6%;
 }
+
 #doc .btn-save {
     margin-top: 6.57%;
 }
@@ -327,18 +354,25 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #3333FF;
     border: 0;
 }
+
 .div-my-addresses .form-check {
-    margin-bottom:4.7%;
+    margin-bottom: 4.7%;
 }
+
 .div-my-addresses .form-check-input {
-    background-image: none;width: 1.5rem;height: 1.5rem;
+    background-image: none;
+    width: 1.5rem;
+    height: 1.5rem;
 }
+
 .div-my-addresses .form-check-label {
     margin-left: 2%;
 }
+
 #address .btn-save {
     margin: 13.86% auto auto;
 }
+
 /*======================================================================*/
 
 
@@ -361,8 +395,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .main-my-item {
-    display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: center
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 12%;
+    justify-content: center
 }
+
 #go-arrange {
     display: flex;
     margin: 3.334% auto auto;
@@ -429,7 +467,6 @@ input[type=number]::-webkit-outer-spin-button {
 .div-input .form-check-input:checked {
     background-color: #3333FF;
 }
-
 
 
 /*=============   Выбор способа доставки*/
@@ -665,6 +702,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #23232A14;
     border: 0;
 }
+
 .code-input-group span {
     color: #0C0C0D7A;
     border-radius: 0 12px 12px 0;
