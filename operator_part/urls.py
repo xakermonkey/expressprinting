@@ -3,6 +3,6 @@ from django.urls import path
 
 
 urlpatterns = [
-    path("operator", operatorForm, name='operator'),
-    path("orderdetails", orderDetails, name='orderdetails'),
+    path("<int:pk>", operatorForm, name='operator'),
+    path("<int:pk>/orderdetails/<str:date>/<int:num>", orderDetails, name='orderdetails'),
 ]

@@ -1,9 +1,16 @@
 {% extends 'index.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ pos.name }}{% endblock %}
 
 {% block content %}
+    <style>
+        .nav-title {
+            color: #0C0C0D7A;
+            font-size: 32px;
+            font-weight: 600;
+        }
+    </style>
     <nav class="nav">
         <div class="nav-left" style="width: 25%">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
@@ -28,12 +35,12 @@
                         <div style="margin-bottom: 4.2%;">
                             <label class="form-label semi f-16 grey" style="">Код клиента</label>
                             <div class="code-input-group input-group" style="">
-                                <input type="text" class="form-control" placeholder="8974"
+                                <input type="text" id="code" maxlength="4" class="form-control" placeholder="8974"
                                        aria-describedby="basic-addon1">
-                                <span class="input-group-text" style="color:#D50029;">Неверный код</span>
+                                <span class="input-group-text" id="alert" style="color:#D50029; display: none">Неверный код</span>
                             </div>
                         </div>
-                        <button id="btn_doc" disabled class="btn get-code bold">Перейти к печати</button>
+                        <button id="btn_doc" type="button" disabled class="btn get-code bold">Перейти к печати</button>
                     </form>
                 </div>
             </div>
@@ -48,95 +55,84 @@
             <label class="semi f-16 grey">Выберите необходимый заказ</label>
         </div>
         <div class="main-my-item">
+            {% for order in orders %}
             <div class="div-my-item">
-                <div style="display: flex;justify-content: flex-end">
-                    <img type="button" style="" src="{% static 'images/close_modal.svg' %}">
-                </div>
                 <div class="row">
                     <div class="col">
                         <div class="row">
                             <label class="semi f-16 grey">Номер заказа</label>
-                            <label class="semi f-18 black">161221-1</label>
+                            <label class="semi f-18 black">{{ order.number }}</label>
                         </div>
                         <div class="row" style="margin-top: 2%">
                             <label class="semi f-16 grey">Дата создания</label>
-                            <label class="semi f-18 black">16.12.2021</label>
+                            <label class="semi f-18 black">{{ order.date_create|date:"d M Y" }}</label>
                         </div>
                     </div>
                     <div class="col" style="display: flex; align-items: center">
-                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
+                        <button class="btn btn-next bold" data-value="{{ order.code }}" data-date="{{ order.date_create|date:"d-m-Y" }}" data-index="{{ order.number }}"  data-toggle="modal" data-backdrop="static"
                                 data-target="#exampleModalRight2">Выбрать
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="div-my-item">
-                <div style="display: flex;justify-content: flex-end">
-                    <img type="button" style="" src="{% static 'images/close_modal.svg' %}">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <label class="semi f-16 grey">Номер заказа</label>
-                            <label class="semi f-18 black">161221-1</label>
-                        </div>
-                        <div class="row" style="margin-top: 2%">
-                            <label class="semi f-16 grey">Дата создания</label>
-                            <label class="semi f-18 black">16.12.2021</label>
-                        </div>
-                    </div>
-                    <div class="col" style="display: flex; align-items: center">
-                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
-                                data-target="#exampleModalRight2">Выбрать
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="div-my-item">
-                <div style="display: flex;justify-content: flex-end">
-                    <img type="button" style="" src="{% static 'images/close_modal.svg' %}">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <label class="semi f-16 grey">Номер заказа</label>
-                            <label class="semi f-18 black">161221-1</label>
-                        </div>
-                        <div class="row" style="margin-top: 2%">
-                            <label class="semi f-16 grey">Дата создания</label>
-                            <label class="semi f-18 black">16.12.2021</label>
-                        </div>
-                    </div>
-                    <div class="col" style="display: flex; align-items: center">
-                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
-                                data-target="#exampleModalRight2">Выбрать
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="div-my-item">
-                <div style="display: flex;justify-content: flex-end">
-                    <img type="button" style="" src="{% static 'images/close_modal.svg' %}">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <label class="semi f-16 grey">Номер заказа</label>
-                            <label class="semi f-18 black">161221-1</label>
-                        </div>
-                        <div class="row" style="margin-top: 2%">
-                            <label class="semi f-16 grey">Дата создания</label>
-                            <label class="semi f-18 black">16.12.2021</label>
-                        </div>
-                    </div>
-                    <div class="col" style="display: flex; align-items: center">
-                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"
-                                data-target="#exampleModalRight2">Выбрать
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% endfor %}
+
+
+{#            <div class="div-my-item">#}
+{#                <div class="row">#}
+{#                    <div class="col">#}
+{#                        <div class="row">#}
+{#                            <label class="semi f-16 grey">Номер заказа</label>#}
+{#                            <label class="semi f-18 black">161221-1</label>#}
+{#                        </div>#}
+{#                        <div class="row" style="margin-top: 2%">#}
+{#                            <label class="semi f-16 grey">Дата создания</label>#}
+{#                            <label class="semi f-18 black">16.12.2021</label>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col" style="display: flex; align-items: center">#}
+{#                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"#}
+{#                                data-target="#exampleModalRight2">Выбрать</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="div-my-item">#}
+{#                <div class="row">#}
+{#                    <div class="col">#}
+{#                        <div class="row">#}
+{#                            <label class="semi f-16 grey">Номер заказа</label>#}
+{#                            <label class="semi f-18 black">161221-1</label>#}
+{#                        </div>#}
+{#                        <div class="row" style="margin-top: 2%">#}
+{#                            <label class="semi f-16 grey">Дата создания</label>#}
+{#                            <label class="semi f-18 black">16.12.2021</label>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col" style="display: flex; align-items: center">#}
+{#                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"#}
+{#                                data-target="#exampleModalRight2">Выбрать</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="div-my-item">#}
+{#                <div class="row">#}
+{#                    <div class="col">#}
+{#                        <div class="row">#}
+{#                            <label class="semi f-16 grey">Номер заказа</label>#}
+{#                            <label class="semi f-18 black">161221-1</label>#}
+{#                        </div>#}
+{#                        <div class="row" style="margin-top: 2%">#}
+{#                            <label class="semi f-16 grey">Дата создания</label>#}
+{#                            <label class="semi f-18 black">16.12.2021</label>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col" style="display: flex; align-items: center">#}
+{#                        <button class="btn btn-next bold" data-toggle="modal" data-backdrop="static"#}
+{#                                data-target="#exampleModalRight2">Выбрать</button>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
     </div>
 {% endblock %}
@@ -145,4 +141,34 @@
 
 {% block script %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript">
+    jQuery(function () {
+       var code = "";
+       var date = "";
+       var num = "";
+       $('.btn-next').click(function () {
+           code = $(this).data('value');
+           date = $(this).data('date');
+           num = $(this).data('index');
+       });
+
+       $('#code').keyup(function () {
+          if ($(this).val().length === 4 && $(this).val() != code){
+              $('#alert').show();
+              $('#btn_doc').attr('disabled', 'disabled');
+          }
+          if ($(this).val().length < 4){
+              $('#alert').hide();
+              $('#btn_doc').attr('disabled', 'disabled');
+          }
+          if ($(this).val().length === 4 && $(this).val() == code){
+              $('#alert').hide();
+              $('#btn_doc').removeAttr('disabled');
+          }
+       });
+       $('#btn_doc').click(function () {
+          document.location.href += '/orderdetails/' + date + '/' + num
+       });
+    });
+    </script>
 {% endblock %}

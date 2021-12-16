@@ -55,12 +55,12 @@ class Order(models.Model):
 
 
 class Doc(models.Model):
-    file = models.FileField(verbose_name='Файл')
+    file = models.FileField(verbose_name='Файл', upload_to='templates/static/orders')
+    name = models.CharField(max_length=255, verbose_name="Название файла", blank=True, null=True)
     copy = models.IntegerField(verbose_name="Количетво копий")
 
     def __str__(self):
         return f"Файл {self.file.name}"
-
     class Meta:
         verbose_name = 'Файл'
         verbose_name_plural = 'Файлы'

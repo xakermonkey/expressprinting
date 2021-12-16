@@ -5,8 +5,9 @@ from datetime import datetime
 import random
 import PyPDF2
 import os
+from win32com.client import Dispatch
+import pythoncom
 
-PDF_EXTENSION = '.pdf'
 
 
 def userForm(request, pk):
@@ -25,6 +26,15 @@ def success_create(request, pk, date, num):
 
 def pages_count(path):
     return PyPDF2.PdfFileReader(open(path, "rb")).numPages
+
+def pages_count_word(path):
+    pythoncom.CoInitializeEx(0)
+    word = Dispatch('Word.Application')
+    word.Visible = False
+    word = word.Documents.Open(os.getcwd() + '/' +path)
+
+    word.Repaginate()
+    return  word.ComputeStatistics(2)
 
 
 def read_heandler(f, date, num):
@@ -54,9 +64,12 @@ def create_order(request):
         doc = Doc.objects.create(copy=copy)
         path = read_heandler(request.FILES.get(i), order.date_create, order.number)
         doc.file.name = path
+        doc.name = path.split('/')[-1]
         doc.save()
         if path.split('.')[-1] == 'pdf':
-            count_page += pages_count(path)
+            count_page += pages_count(path) * copy
+        if path.split('.')[-1] == 'doc' or path.split('.')[-1] == 'docx' or path.split('.')[-1] == 'rtf':
+            count_page += pages_count_word(path) * copy
         order.documents.add(doc)
     order.list_count = count_page
     order.amount = order.list_count * order.price_per_list
