@@ -29,7 +29,6 @@
 
         <div style="display: flex;justify-content: center;margin-top: 2.5%">
             <div style="display: flex;flex-direction: column;margin-right: 2.5%">
-                {#================================================== Схема==================#}
                 <div align="center" class="div-choice-delivery-company" style="align-items: flex-start">
                     <label class="semi f-16 grey">Файлы</label>
                     {% for doc in order.documents.all %}
@@ -43,18 +42,9 @@
                         </div>
                     </div>
                     {% endfor %}
-{#                    <div class="div-input">#}
-{#                        <div class="" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">#}
-{#                            <div style="display: flex; flex-direction: column;align-items: flex-start">#}
-{#                                <label class="semi f-18 black">jkvenjcnr934l-dsakm.pdf</label>#}
-{#                                <label class="semi f-16 grey">4 стр.</label></div>#}
-{#                            <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">Печать</a>#}
-{#                        </div>#}
-{#                    </div>#}
                 </div>
             </div>
 
-            {#==================================================    Прайсы подсчет ЗА 300#}
             <div class="div-price">
                 <div class="div-price-item">
                     <label class="semi f-18 black">Общее количество страниц</label>
