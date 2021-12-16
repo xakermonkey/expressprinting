@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load static %}
 
 {% block title %}Заказ успешно создан{% endblock %}
 
@@ -6,8 +7,72 @@
 
 
 {% block content %}
-     Номер заказа: {{ num}}
+    Номер заказа: {{ num }}
     Код: {{ code }}
+    <style>
+        @media screen and (max-width: 980px) {
+            .nav-title {
+                color: #0C0C0D7A;
+                font-size: 26px;
+                font-weight: 600;
+                margin-left: 12px;
+                width: 240px;
+            }
+        }
+    </style>
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
+        </div>
+    </nav>
+
+    <div align="center" style="margin-top: 5%">
+        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Ваш код</h2>
+        <label class="semi f-16 grey">Назовите его оператору</label>
+    </div>
+    <style>
+        .input-group {
+            min-height: 58px;
+        }
+
+        .form-control {
+            background-color: #23232A14;
+            border-radius: 12px;
+        }
+
+        .input-group-text {
+            border: 0;
+            border-radius: 12px;
+            background-color: #23232A14;
+        }
+
+        .div-code {
+            padding: 5%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .code {
+            padding: 5%;
+            border-radius: 12px;
+            margin-right: 8%;
+            background-color: #23232A14;
+            color: black;
+        }
+    </style>
+    <div style="padding: 4%">
+        <div class="div-code">
+            <h2 class="middle code">5</h2>
+            <h2 class="middle code">7</h2>
+            <h2 class="middle code">1</h2>
+            <h2 class="middle code" style="margin-right: 0">9</h2>
+        </div>
+        <button class="btn btn-next bold" style="margin-top: 10%">На главную</button>
+    </div>
 {% endblock %}
 
 
