@@ -42,6 +42,14 @@
         }
     </style>
     <div style="padding: 4%">
+        <label class="semi f-16 grey">Тариф</label>
+        <div style="padding: 1rem; background: #FFFFFF;box-shadow: 0 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
+            <div class="div-price-item" style="margin-bottom: 0">
+                <h2 class="middle" style="color: black;">{{ rate.price_per_list }} ₽ страница</h2>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 4%">
         <div style="padding: 5%; background: #FFFFFF;box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
             <div id="file-input">
                 {% csrf_token %}
@@ -57,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <button id="send" class="btn btn-next bold">Отправить на печать</button>
+            <button id="send" disabled class="btn btn-next bold">Отправить на печать</button>
         </div>
     </div>
 
@@ -81,10 +89,12 @@
         jQuery(function () {
             var massFile = {}
             var count = 1
+            var socket = new WebSocket(
+                "ws://" + window.location.host + "/ws/" + {{ pos.id }}
+            );
             $('body').on('change', 'input[type="file"]', function () {
 
                 var name = $(this).attr('name')
-                console.log(typeof massFile[name] !== 'undefined' && $(this).val() === "" && count !== 1)
                 if (typeof massFile[name] !== 'undefined' && $(this).val() === "" && count !== 1) {
                     $('#file' + (count)).remove()
                     delete massFile[name];
@@ -97,7 +107,7 @@
                     var html = `<hr/><div id="file${count}" ><div class="input-group mb-3">
                             <input type="file" class="form-control" accept="application/pdf,application/msword,
                                   application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                name="file${count}">
+                                name="file${count}" style="padding: 1rem 0.75rem;">
                         </div>
                         <div class="input-group mb-3 ls">
                             <span class="input-group-text">Количество копий</span>
@@ -105,7 +115,12 @@
                         </div></div>`;
                     $('#file' + (count - 1)).after(html);
                 }
-                console.log(massFile)
+                console.log(count, massFile, count === 1 && massFile[Object.keys(massFile)[0]] == "")
+                if (count === 1){
+                    $('#send').attr('disabled','disabled')
+                }else{
+                    $('#send').removeAttr('disabled')
+                }
 
             });
 
@@ -133,7 +148,8 @@
                     data: formData,
                     dataType: 'json',
                     success: function (data) {
-                        document.location.href += '/success_create/' + data.date + '/' + data.num
+                        socket.send(JSON.stringify(data));
+                        document.location.href = document.location.origin + '/user/'+ {{ pos.id }} +'/success_create/' + data.date + '/' + data.num
                     }
                 });
 

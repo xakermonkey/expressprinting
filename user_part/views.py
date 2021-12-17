@@ -5,14 +5,14 @@ from datetime import datetime
 import random
 import PyPDF2
 import os
-from win32com.client import Dispatch
-import pythoncom
-
+from zipfile import ZipFile
+import xml.dom.minidom as x
 
 
 def userForm(request, pk):
     pos = POS.objects.get(id=pk)
-    return render(request, 'user_form.html', {'pos': pos})
+    tarif = Rates.objects.filter(pos=pos).order_by('date').last()
+    return render(request, 'user_form.html', {'pos': pos, 'rate':tarif})
 
 
 def success_create(request, pk, date, num):
@@ -21,20 +21,19 @@ def success_create(request, pk, date, num):
                                                    month=int(date.split("-")[1]),
                                                    year=int(date.split("-")[2])),
                               number=num)
-    return render(request, 'success_create.html', {'num': order.number, "code": str(order.code)})
+    return render(request, 'success_create.html', {'order': order, 'code':str(order.code)})
 
 
 def pages_count(path):
     return PyPDF2.PdfFileReader(open(path, "rb")).numPages
 
-def pages_count_word(path):
-    pythoncom.CoInitializeEx(0)
-    word = Dispatch('Word.Application')
-    word.Visible = False
-    word = word.Documents.Open(os.getcwd() + '/' +path)
 
-    word.Repaginate()
-    return  word.ComputeStatistics(2)
+def pages_count_word(path):
+    z = ZipFile(path)
+    text = str(z.read('docProps/app.xml'))
+    page = text.find('<Pages>')
+    end = text.find('</Pages>')
+    return int(text[page + 7:end])
 
 
 def read_heandler(f, date, num):
@@ -65,6 +64,7 @@ def create_order(request):
         path = read_heandler(request.FILES.get(i), order.date_create, order.number)
         doc.file.name = path
         doc.name = path.split('/')[-1]
+        doc.stati_path = "/".join(path.split('/')[2:])
         doc.save()
         if path.split('.')[-1] == 'pdf':
             count_page += pages_count(path) * copy
@@ -74,4 +74,4 @@ def create_order(request):
     order.list_count = count_page
     order.amount = order.list_count * order.price_per_list
     order.save()
-    return JsonResponse({'num': order.number, 'date': datetime.today().strftime("%d-%m-%Y")})
+    return JsonResponse({'num': order.number, 'date': datetime.today().strftime("%d-%m-%Y"), 'code': order.code})

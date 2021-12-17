@@ -12,7 +12,7 @@
         }
     </style>
     <nav class="nav">
-        <div class="nav-left" style="width: 25%">
+        <div class="nav-left">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
             <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
         </div>
@@ -52,7 +52,9 @@
         <div align="center">
             <h2 class="middle" style="color: black;margin-bottom: 1rem;">Панель заказов<br>
                 экспресс печати</h2>
-            <label class="semi f-16 grey">Выберите необходимый заказ</label>
+            <label id="subtext" class="semi f-16 grey">{% if orders %}
+            Выберите необходимый заказ {% else %} Новых заказов нет
+            {% endif %} </label>
         </div>
         <div class="main-my-item">
             {% for order in orders %}
@@ -65,7 +67,7 @@
                         </div>
                         <div class="row" style="margin-top: 2%">
                             <label class="semi f-16 grey">Дата создания</label>
-                            <label class="semi f-18 black">{{ order.date_create|date:"d M Y" }}</label>
+                            <label class="semi f-18 black">{{ order.date_create|date:"d-m-Y" }}</label>
                         </div>
                     </div>
                     <div class="col" style="display: flex; align-items: center">
@@ -88,7 +90,34 @@
        var code = "";
        var date = "";
        var num = "";
-       $('.btn-next').click(function () {
+       var socket = new WebSocket("ws://" + window.location.host + "/ws/" + {{ pos.id }})
+
+
+       socket.onmessage = function (e) {
+           $('#subtext').text('Выберите необходимый заказ');
+           var data = JSON.parse(e.data)
+           $('.main-my-item').append(`<div class="div-my-item">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <label class="semi f-16 grey">Номер заказа</label>
+                            <label class="semi f-18 black">${data.num}</label>
+                        </div>
+                        <div class="row" style="margin-top: 2%">
+                            <label class="semi f-16 grey">Дата создания</label>
+                            <label class="semi f-18 black">${data.date}</label>
+                        </div>
+                    </div>
+                    <div class="col" style="display: flex; align-items: center">
+                        <button class="btn btn-next bold" data-value="${data.code}" data-date="${data.date}" data-index="${data.num}"  data-toggle="modal" data-backdrop="static"
+                                data-target="#exampleModalRight2">Выбрать
+                        </button>
+                    </div>
+                </div>
+            </div>`)
+       }
+
+       $('body').on('click', '.btn-next', function () {
            code = $(this).data('value');
            date = $(this).data('date');
            num = $(this).data('index');

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from .models import *
+from django.http import JsonResponse
 from datetime import datetime
 
 def operatorForm(request, pk):
     pos = POS.objects.get(id=pk)
-    orders = Order.objects.filter(pos=pos)
+    orders = Order.objects.filter(pos=pos, date_print=None)
+    print(orders)
     return render(request, 'operator_form.html', {'orders': orders, 'pos':pos})
 
 def orderDetails(request, pk, date, num):
@@ -14,3 +16,11 @@ def orderDetails(request, pk, date, num):
                                                    year=int(date.split("-")[2])),
                               number=num)
     return render(request, 'order_details.html', {'order': order})
+
+
+
+def success_print(request, pk, date):
+    order = Order.objects.get(id=request.POST.get('id'))
+    order.date_print = datetime.today()
+    order.save()
+    return JsonResponse({'ok':'ok'})

@@ -15,7 +15,7 @@
     <nav class="nav">
         <div class="nav-left">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
-            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
+            <div class="nav-title" id="" href="{% url 'operator' pk=order.pos.id %}" style="margin-left: 5%">Экспресс печать</div>
             <a href="{% url 'operator' pk=order.pos.id %}"  ><img src="{% static 'images/arrow_back.svg' %}"
                                                                      style="width: 60px; "></a>
         </div>
@@ -27,24 +27,23 @@
             <h2 class="middle" style="color: black;">Печать</h2>
         </div>
 
-        <div style="display: flex;justify-content: center;margin-top: 2.5%">
-            <div style="display: flex;flex-direction: column;margin-right: 2.5%">
+        <div style="display: flex;justify-content: center;margin-top: 2.5%;width: 100%">
+            <div style="display: flex;flex-direction: column;margin-right: 2.5%;width: 50%;max-width: 576px">
                 <div align="center" class="div-choice-delivery-company" style="align-items: flex-start">
                     <label class="semi f-16 grey">Файлы</label>
                     {% for doc in order.documents.all %}
-                        <div class="div-input" style="width: 400px">
+                        <div class="div-input">
                         <div class=""
                              style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
                             <div style="display: flex; flex-direction: column;align-items: flex-start">
                                 <label class="semi f-18 black">{{ doc.name }}</label>
                                 <label class="semi f-16 grey">Количество копий: {{ doc.copy }}</label></div>
-                            <a data-toggle="modal" data-backdrop="static" href="#" data-target="#exampleModalRight" download="{{ doc.file.name }}">Печать</a>
+                            <a data-toggle="modal" data-backdrop="static" href="{% static doc.stati_path %}" target="_blank" data-target="#exampleModalRight" download>Скачать</a>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-
             <div class="div-price">
                 <div class="div-price-item">
                     <label class="semi f-18 black">Общее количество страниц</label>
@@ -59,7 +58,8 @@
                     <label class="semi f-18 black">Итоговая стоимость</label>
                     <h2 class="middle" style="color: black;">{{ order.amount }} ₽</h2>
                 </div>
-                <a id="pay-pick-up-ls" href="#" class="btn bold">Завершить</a>
+                {% csrf_token %}
+                <a id="pay-pick-up-ls" class="btn bold">Завершить</a>
             </div>
         </div>
     </div>
@@ -71,6 +71,22 @@
 {% block script %}
     <script>
     jQuery(function () {
+        console.log(document.location)
+        $('#pay-pick-up-ls').click(function () {
+            var data = {"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()}
+            data['id'] = {{ order.id }}
+            $.ajax({
+                    type: "POST",
+                    url: 'success_print',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+
+                        var url = document.location.origin + '/operator/' + {{ order.pos.id }};
+                        document.location.href = url
+                    }
+                });
+        });
     })
     </script>
 {% endblock %}

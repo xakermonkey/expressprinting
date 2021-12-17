@@ -57,6 +57,7 @@ class Order(models.Model):
 class Doc(models.Model):
     file = models.FileField(verbose_name='Файл', upload_to='templates/static/orders')
     name = models.CharField(max_length=255, verbose_name="Название файла", blank=True, null=True)
+    stati_path = models.CharField(max_length=255, verbose_name="Путь до файла", blank=True, null=True)
     copy = models.IntegerField(verbose_name="Количетво копий")
 
     def __str__(self):
