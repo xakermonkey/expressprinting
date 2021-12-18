@@ -848,17 +848,5 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 12px;
     background-color: #23232A14;
 }
-/*.div-my-item .close {*/
-/*            position: relative;*/
-/*            top: -55px;*/
-/*            right: -330px;*/
-/*            font-size: 32px;*/
-/*            color: #0C0C0D7A;*/
-/*        }*/
-
-/*        .div-my-item .close:hover {*/
-/*            color: #0C0C0D;*/
-/*            cursor: pointer;*/
-/*        }*/
 
 /*============================================================*/
