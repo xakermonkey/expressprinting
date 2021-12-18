@@ -6,7 +6,6 @@ import random
 import PyPDF2
 import os
 from zipfile import ZipFile
-import xml.dom.minidom as x
 
 
 def userForm(request, pk):
@@ -74,4 +73,4 @@ def create_order(request):
     order.list_count = count_page
     order.amount = order.list_count * order.price_per_list
     order.save()
-    return JsonResponse({'num': order.number, 'date': datetime.today().strftime("%d-%m-%Y"), 'code': order.code})
+    return JsonResponse({'num': order.number, 'id':order.id, 'date': datetime.today().strftime("%d-%m-%Y"), 'code': order.code})

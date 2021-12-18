@@ -4,15 +4,7 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-    <style>
-        .nav-title {
-            width: 320px;
-            color: #0C0C0D7A;
-            font-size: 32px;
-            font-weight: 600;
-        }
-    </style>
-    <nav class="nav">
+    <nav class="nav operator">
         <div class="nav-left">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
             <div class="nav-title" id="" href="{% url 'operator' pk=order.pos.id %}" style="margin-left: 5%">Экспресс печать</div>

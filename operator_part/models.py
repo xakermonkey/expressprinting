@@ -55,7 +55,7 @@ class Order(models.Model):
 
 
 class Doc(models.Model):
-    file = models.FileField(verbose_name='Файл', upload_to='templates/static/orders')
+    file = models.FileField(verbose_name='Файл', upload_to='templates/static/orders', max_length=1000)
     name = models.CharField(max_length=255, verbose_name="Название файла", blank=True, null=True)
     stati_path = models.CharField(max_length=255, verbose_name="Путь до файла", blank=True, null=True)
     copy = models.IntegerField(verbose_name="Количетво копий")
@@ -65,8 +65,3 @@ class Doc(models.Model):
     class Meta:
         verbose_name = 'Файл'
         verbose_name_plural = 'Файлы'
-
-
-
-
-

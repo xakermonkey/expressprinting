@@ -4,17 +4,6 @@
 {% block title %}{{ pos.name }}{% endblock %}
 
 {% block content %}
-    <style>
-        @media screen and (max-width: 980px) {
-            .nav-title {
-                color: #0C0C0D7A;
-                font-size: 26px;
-                font-weight: 600;
-                margin-left: 12px;
-                width: 240px;
-            }
-        }
-    </style>
     <nav class="nav">
         <div class="nav-left">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
@@ -25,32 +14,16 @@
     <div align="center" style="margin-top: 5%">
         <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать в {{ pos.name }}</h2>
     </div>
-    <style>
-        .input-group {
-            min-height: 58px;
-        }
-
-        .form-control {
-            background-color: #23232A14;
-            border-radius: 12px;
-        }
-
-        .input-group-text {
-            border: 0;
-            border-radius: 12px;
-            background-color: #23232A14;
-        }
-    </style>
     <div style="padding: 4%">
         <label class="semi f-16 grey">Тариф</label>
-        <div style="padding: 1rem; background: #FFFFFF;box-shadow: 0 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
+        <div class="div-white-background" style="padding: 1rem;">
             <div class="div-price-item" style="margin-bottom: 0">
                 <h2 class="middle" style="color: black;">{{ rate.price_per_list }} ₽ страница</h2>
             </div>
         </div>
     </div>
     <div style="padding: 4%">
-        <div style="padding: 5%; background: #FFFFFF;box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
+        <div class="div-white-background" style="padding: 5%;">
             <div id="file-input">
                 {% csrf_token %}
                 <div id="file1">
@@ -75,12 +48,11 @@
             <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>
             <label class="bold f-16 black" style="margin-bottom: 4.64%">Терминал А, 2 этаж.<br>
                 Возле стойки информации.</label>
-            <img src="{% static 'images/scheme.png' %}">
+            <img width="100%" src="{% static 'images/scheme.png' %}">
         </div>
     </div>
 
 {% endblock %}
-
 
 
 {% block script %}
@@ -90,7 +62,7 @@
             var massFile = {}
             var count = 1
             var socket = new WebSocket(
-                "ws://" + window.location.host + "/ws/" + {{ pos.id }}
+                "wss://" + window.location.host + "/ws/" + {{ pos.id }}
             );
             $('body').on('change', 'input[type="file"]', function () {
 
@@ -116,9 +88,9 @@
                     $('#file' + (count - 1)).after(html);
                 }
                 console.log(count, massFile, count === 1 && massFile[Object.keys(massFile)[0]] == "")
-                if (count === 1){
-                    $('#send').attr('disabled','disabled')
-                }else{
+                if (count === 1) {
+                    $('#send').attr('disabled', 'disabled')
+                } else {
                     $('#send').removeAttr('disabled')
                 }
 
@@ -149,7 +121,7 @@
                     dataType: 'json',
                     success: function (data) {
                         socket.send(JSON.stringify(data));
-                        document.location.href = document.location.origin + '/user/'+ {{ pos.id }} +'/success_create/' + data.date + '/' + data.num
+                        document.location.href = document.location.origin + '/user/' + {{ pos.id }} +'/success_create/' + data.date + '/' + data.num
                     }
                 });
 
