@@ -24,3 +24,9 @@ def success_print(request, pk, date):
     order.date_print = datetime.today()
     order.save()
     return JsonResponse({'ok':'ok'})
+
+
+def remove(request):
+    order = Order.objects.get(id=request.POST.get('id'))
+    order.delete()
+    return JsonResponse({'ok': 'ok'})

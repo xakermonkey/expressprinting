@@ -398,7 +398,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     flex-wrap: wrap;
     padding: 0 12%;
-    justify-content: center
+    justify-content: center;
 }
 
 #go-arrange {

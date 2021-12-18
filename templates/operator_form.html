@@ -10,6 +10,19 @@
             font-size: 32px;
             font-weight: 600;
         }
+
+        .close {
+            position: relative;
+            top: -55px;
+            right: -330px;
+            font-size: 32px;
+            color: #0C0C0D7A;
+        }
+
+        .close:hover {
+            color: #0C0C0D;
+            cursor: pointer;
+        }
     </style>
     <nav class="nav">
         <div class="nav-left">
@@ -49,16 +62,19 @@
     {#==========================================================================================#}
 
     <div id="in-storage">
-        <div align="center">
-            <h2 class="middle" style="color: black;margin-bottom: 1rem;">Панель заказов<br>
-                экспресс печати</h2>
-            <label id="subtext" class="semi f-16 grey">{% if orders %}
+    <div align="center">
+        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Панель заказов<br>
+            экспресс печати</h2>
+        <label id="subtext" class="semi f-16 grey">{% if orders %}
             Выберите необходимый заказ {% else %} Новых заказов нет
-            {% endif %} </label>
-        </div>
-        <div class="main-my-item">
-            {% for order in orders %}
+        {% endif %} </label>
+    </div>
+    <div class="main-my-item">
+    {% csrf_token %}
+        {% for order in orders %}
+
             <div class="div-my-item">
+                <i data-value="{{ order.id }}" class="close bi bi-x"></i>
                 <div class="row">
                     <div class="col">
                         <div class="row">
@@ -71,13 +87,16 @@
                         </div>
                     </div>
                     <div class="col" style="display: flex; align-items: center">
-                        <button class="btn btn-next bold" data-value="{{ order.code }}" data-date="{{ order.date_create|date:"d-m-Y" }}" data-index="{{ order.number }}"  data-toggle="modal" data-backdrop="static"
+
+                        <button class="btn btn-next bold" data-value="{{ order.code }}"
+                                data-date="{{ order.date_create|date:"d-m-Y" }}" data-index="{{ order.number }}"
+                                data-toggle="modal" data-backdrop="static"
                                 data-target="#exampleModalRight2">Выбрать
                         </button>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}
 
@@ -86,17 +105,18 @@
 {% block script %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script type="text/javascript">
-    jQuery(function () {
-       var code = "";
-       var date = "";
-       var num = "";
-       var socket = new WebSocket("ws://" + window.location.host + "/ws/" + {{ pos.id }})
+        jQuery(function () {
+            var code = "";
+            var date = "";
+            var num = "";
+            var socket = new WebSocket("ws://" + window.location.host + "/ws/" + {{ pos.id }})
 
 
-       socket.onmessage = function (e) {
-           $('#subtext').text('Выберите необходимый заказ');
-           var data = JSON.parse(e.data)
-           $('.main-my-item').append(`<div class="div-my-item">
+            socket.onmessage = function (e) {
+                $('#subtext').text('Выберите необходимый заказ');
+                var data = JSON.parse(e.data)
+                $('.main-my-item').append(`<div class="div-my-item">
+                    <i data-value="${data.id}" class="close bi bi-x"></i>
                 <div class="row">
                     <div class="col">
                         <div class="row">
@@ -115,31 +135,49 @@
                     </div>
                 </div>
             </div>`)
-       }
+            }
 
-       $('body').on('click', '.btn-next', function () {
-           code = $(this).data('value');
-           date = $(this).data('date');
-           num = $(this).data('index');
-       });
+            $('body').on('click', '.btn-next', function () {
+                code = $(this).data('value');
+                date = $(this).data('date');
+                num = $(this).data('index');
+            });
 
-       $('#code').keyup(function () {
-          if ($(this).val().length === 4 && $(this).val() != code){
-              $('#alert').show();
-              $('#btn_doc').attr('disabled', 'disabled');
-          }
-          if ($(this).val().length < 4){
-              $('#alert').hide();
-              $('#btn_doc').attr('disabled', 'disabled');
-          }
-          if ($(this).val().length === 4 && $(this).val() == code){
-              $('#alert').hide();
-              $('#btn_doc').removeAttr('disabled');
-          }
-       });
-       $('#btn_doc').click(function () {
-          document.location.href += '/orderdetails/' + date + '/' + num
-       });
-    });
+            $('#code').keyup(function () {
+                if ($(this).val().length === 4 && $(this).val() != code) {
+                    $('#alert').show();
+                    $('#btn_doc').attr('disabled', 'disabled');
+                }
+                if ($(this).val().length < 4) {
+                    $('#alert').hide();
+                    $('#btn_doc').attr('disabled', 'disabled');
+                }
+                if ($(this).val().length === 4 && $(this).val() == code) {
+                    $('#alert').hide();
+                    $('#btn_doc').removeAttr('disabled');
+                }
+            });
+            $('#btn_doc').click(function () {
+                document.location.href += '/orderdetails/' + date + '/' + num
+            });
+
+            $('body').on('click', '.close', function () {
+               $(this).parent().remove()
+                var data = {"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()}
+                data['id'] = $(this).data('value');
+               $.ajax({
+                   url: 'remove',
+                   method: 'POST',
+                   data: data,
+                   success: function (data) {
+                       if ($('.div-my-item').length === 0){
+                           $('#subtext').text('Новых заказов нет');
+                       }
+                       console.log(data.ok)
+                   }
+               })
+
+            });
+        });
     </script>
 {% endblock %}
