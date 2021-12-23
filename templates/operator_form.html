@@ -11,75 +11,27 @@
         </div>
 
     </nav>
-
-    {#==========================Модальное окно MILEONAIR=============================#}
-    <div class="modal fade modal-right" id="exampleModalRight2" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalRight2" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-                <div class="" style="display: flex;justify-content: space-between">
-                    <img type="button" class="close" data-dismiss="modal" aria-label="Close"
-                         style="margin-top: 6%; margin-left: 6%" src="{% static 'images/close_modal.svg' %}">
-                    <h2 class="middle" style="color: black;margin-top: 6%;margin-right:29%">Подтверждение </h2>
-                </div>
-                <div class="" style="padding-left: 6%; padding-right: 6%">
-                    <form class="modal-code" style="margin-top: 11%">
-                        <div style="margin-bottom: 4.2%;">
-                            <label class="form-label semi f-16 grey" style="">Код клиента</label>
-                            <div class="code-input-group input-group" style="">
-                                <input type="text" id="code" maxlength="4" class="form-control" placeholder="8974"
-                                       aria-describedby="basic-addon1">
-                                <span class="input-group-text" id="alert" style="color:#D50029; display: none">Неверный код</span>
-                            </div>
-                        </div>
-                        <button id="btn_doc" type="button" disabled class="btn get-code bold">Перейти к печати</button>
-                    </form>
-                </div>
-            </div>
+    <div id="alert" style="display: none" >
+        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #F9D2D2;display: flex;
+        justify-content: center;
+        align-items: center;bottom: 2.97%;
+        right: 1.67%;
+        margin: auto;">
+            <label class="semi f-18 black">Заказ не найден</label>
         </div>
     </div>
-    {#==========================================================================================#}
 
     <div id="in-storage">
+    {% csrf_token %}
         <div align="center">
             <h2 class="middle" style="color: black;margin-bottom: 1rem;">Панель заказов<br>
-                экспресс печати</h2>
-            <label id="subtext" class="semi f-16 grey">{% if orders %}
-                Выберите необходимый заказ {% else %} Новых заказов нет
-            {% endif %} </label>
+                {{ pos.name }}</h2>
+            <label id="subtext" class="semi f-16 grey">Введите номер заказа</label>
         </div>
-        <div class="main-my-item">
-        {% csrf_token %}
-            {% for order in orders %}
-                <div class="div-my-item">
-{#                <div style="display: flex;justify-content: flex-end">#}
-{#                <img class="close bi bi-x" type="button" data-value="{{ order.id }}" src="{% static 'images/close_modal.svg' %}"></div>#}
-{#                    <div style="display: flex;justify-content: flex-end">#}
-                    <div style="display: flex;justify-content: flex-end" data-value="{{ order.id }}" class="close-order bi bi-x"></div>
-{#                </div>#}
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <label class="semi f-16 grey">Номер заказа</label>
-                                <label class="semi f-18 black">{{ order.number }}</label>
-                            </div>
-                            <div class="row" style="margin-top: 2%">
-                                <label class="semi f-16 grey">Дата создания</label>
-                                <label class="semi f-18 black">{{ order.date_create|date:"d-m-Y" }}</label>
-                            </div>
-                        </div>
-                        <div class="col" style="display: flex; align-items: center">
-                            <button class="btn btn-next bold" data-value="{{ order.code }}"
-                                    data-date="{{ order.date_create|date:"d-m-Y" }}" data-index="{{ order.number }}"
-                                    data-toggle="modal" data-backdrop="static"
-                                    data-target="#exampleModalRight2">Выбрать
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+    <div style="display: flex;justify-content: center;flex-direction: column; padding: 0 40%;margin-top: 1rem;">
+        <input style="background: rgba(35, 35, 42, .08);border-radius: 12px;padding: 1rem;width: 100%;border: 0;" type="number" id="code" maxlength="3" class="" placeholder="Например, 001" aria-describedby="basic-addon1">
+        <button id="btn_doc" type="button" disabled class="btn get-code bold">Перейти к заказу</button>
+    </div>
     </div>
 {% endblock %}
 
@@ -89,77 +41,41 @@
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script type="text/javascript">
         jQuery(function () {
-            var code = "";
-            var date = "";
-            var num = "";
-            var socket = new WebSocket("wss://" + window.location.host + "/ws/" + {{ pos.id }})
-
-
-            socket.onmessage = function (e) {
-                $('#subtext').text('Выберите необходимый заказ');
-                var data = JSON.parse(e.data)
-                $('.main-my-item').append(`<div class="div-my-item">
-                <div style="display: flex;justify-content: flex-end" data-value="${data.id}" class="close-order bi bi-x"></div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <label class="semi f-16 grey">Номер заказа</label>
-                            <label class="semi f-18 black">${data.num}</label>
-                        </div>
-                        <div class="row" style="margin-top: 2%">
-                            <label class="semi f-16 grey">Дата создания</label>
-                            <label class="semi f-18 black">${data.date}</label>
-                        </div>
-                    </div>
-                    <div class="col" style="display: flex; align-items: center">
-                        <button class="btn btn-next bold" data-value="${data.code}" data-date="${data.date}" data-index="${data.num}"  data-toggle="modal" data-backdrop="static"
-                                data-target="#exampleModalRight2">Выбрать
-                        </button>
-                    </div>
-                </div>
-            </div>`)
-            }
-
-            $('body').on('click', '.btn-next', function () {
-                code = $(this).data('value');
-                date = $(this).data('date');
-                num = $(this).data('index');
-            });
-
+            var data = {"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()}
+            var date = ""
+            var num = ""
             $('#code').keyup(function () {
-                if ($(this).val().length === 4 && $(this).val() != code) {
-                    $('#alert').show();
-                    $('#btn_doc').attr('disabled', 'disabled');
+
+                if ($(this).val().length < 3){
+                    $('#btn_doc').attr('disabled', 'disabled')
+                    $('#alert').hide()
                 }
-                if ($(this).val().length < 4) {
-                    $('#alert').hide();
-                    $('#btn_doc').attr('disabled', 'disabled');
-                }
-                if ($(this).val().length === 4 && $(this).val() == code) {
-                    $('#alert').hide();
-                    $('#btn_doc').removeAttr('disabled');
+
+                if ($(this).val().length === 3){
+                    data['num'] = $(this).val()
+
+                    $.ajax({
+                        url: 'get_order',
+                        method: 'POST',
+                        data: data,
+                        success: function (data) {
+                            if (data.num !== '-') {
+                                $('#btn_doc').removeAttr('disabled')
+                                date = data.date
+                                num = data.num
+                            }else{
+                                $('#btn_doc').attr('disabled', 'disabled')
+                                $('#alert').show()
+                            }
+
+                        }
+                    })
                 }
             });
+
+
             $('#btn_doc').click(function () {
                 document.location.href += '/orderdetails/' + date + '/' + num
-            });
-
-            $('body').on('click', '.close-order', function () {
-                $(this).parent().remove()
-                var data = {"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()}
-                data['id'] = $(this).data('value');
-                $.ajax({
-                    url: 'remove',
-                    method: 'POST',
-                    data: data,
-                    success: function (data) {
-                        if ($('.div-my-item').length === 0) {
-                            $('#subtext').text('Новых заказов нет');
-                        }
-                        console.log(data.ok)
-                    }
-                })
-
             });
         });
     </script>

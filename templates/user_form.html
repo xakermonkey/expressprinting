@@ -45,10 +45,9 @@
     <div style="display: flex;flex-direction: column;padding: 4%;">
         {#================================================== Схема==================#}
         <div align="center" class="div-choice-delivery-company">
-            <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>
-            <label class="bold f-16 black" style="margin-bottom: 4.64%">Терминал А, 2 этаж.<br>
-                Возле стойки информации.</label>
-            <img width="100%" src="{% static 'images/scheme.png' %}">
+            {#            <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>#}
+            <label class="bold f-16 black" style="margin-bottom: 4.64%">Местоположение</label>
+            <img width="100%" src="{{ pos.scheme_img.url }}">
         </div>
     </div>
 
@@ -61,9 +60,9 @@
         jQuery(function () {
             var massFile = {}
             var count = 1
-            var socket = new WebSocket(
-                "wss://" + window.location.host + "/ws/" + {{ pos.id }}
-            );
+            {#var socket = new WebSocket(#}
+            {#    "wss://" + window.location.host + "/ws/" + {{ pos.id }}#}
+            {#);#}
             $('body').on('change', 'input[type="file"]', function () {
 
                 var name = $(this).attr('name')
@@ -120,14 +119,11 @@
                     data: formData,
                     dataType: 'json',
                     success: function (data) {
-                        socket.send(JSON.stringify(data));
-                        document.location.href = document.location.origin + '/user/' + {{ pos.id }} +'/success_create/' + data.date + '/' + data.num
+                        {#socket.send(JSON.stringify(data));#}
+                        document.location.href = document.location.origin + '/user/' + {{ pos.id }} +'/success_create/' + data.id
                     }
                 });
-
             });
-
-
         });
     </script>
 {% endblock %}

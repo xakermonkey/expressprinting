@@ -9,6 +9,8 @@ from django.db import models
 class POS(models.Model):
     name = models.CharField(max_length=255, verbose_name="Наименование точки печати")
     ip = models.CharField(max_length=255, verbose_name="IP принтера")
+    name_printer = models.CharField(max_length=500, verbose_name='Название принтера')
+    scheme_img = models.ImageField(upload_to='pos', blank=True, null=True, verbose_name="Схема")
 
     def __str__(self):
         return self.name
@@ -38,9 +40,8 @@ class Order(models.Model):
     date_create = models.DateField(verbose_name="Дата создания заказа")
     date_print = models.DateField(verbose_name="Дата печати", blank=True, null=True)
     number = models.CharField(max_length=255, verbose_name="Номер заказа")
-    code = models.IntegerField(verbose_name="Код")
     pos = models.ForeignKey(POS, on_delete=models.CASCADE, verbose_name='Точка в которой заказали печать')
-    price_per_list = models.DecimalField(decimal_places=2,max_digits=5, verbose_name="Цена за лист")
+    price_per_list = models.DecimalField(decimal_places=2, max_digits=5, verbose_name="Цена за лист")
     list_count = models.IntegerField(verbose_name="Общее количество страниц", null=True, blank=True)
     amount = models.DecimalField(decimal_places=2,max_digits=9, verbose_name="Сумма заказа", null=True, blank=True)
     documents = models.ManyToManyField('Doc', related_name='order')
