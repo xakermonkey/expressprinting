@@ -2,7 +2,6 @@ from django.shortcuts import render
 from operator_part.models import *
 from django.http import JsonResponse
 from datetime import datetime
-import random
 import PyPDF2
 import os
 from zipfile import ZipFile
@@ -14,13 +13,9 @@ def userForm(request, pk):
     return render(request, 'user_form.html', {'pos': pos, 'rate':tarif})
 
 
-def success_create(request, pk, date, num):
-    order = Order.objects.get(pos=POS.objects.get(pk=pk),
-                              date_create=datetime(day=int(date.split("-")[0]),
-                                                   month=int(date.split("-")[1]),
-                                                   year=int(date.split("-")[2])),
-                              number=num)
-    return render(request, 'success_create.html', {'order': order, 'code':str(order.code)})
+def success_create(request, pk, pk_order):
+    order = Order.objects.get(id=pk_order)
+    return render(request, 'success_create.html', {'order': order, 'code': str(order.number)})
 
 
 def pages_count(path):
@@ -47,13 +42,15 @@ def read_heandler(f, date, num):
     return f'templates/static/orders/{date.strftime("%d-%m-%Y")}/{num}/{f.name}'
 
 
+
+
 def create_order(request):
     pos = POS.objects.get(id=request.POST.get('pos'))
     rate = Rates.objects.filter(pos=pos).order_by('date').last()
+    num = str(Order.objects.filter(date_create=datetime.today()).count() + 1)
     order = Order.objects.create(pos=pos,
                                  date_create=datetime.today(),
-                                 number=Order.objects.filter(date_create=datetime.today()).count() + 1,
-                                 code=random.randint(999, 9999),
+                                 number='0'*(3-len(num))+num,
                                  price_per_list=rate.price_per_list
                                  )
     count_page = 0
@@ -73,4 +70,4 @@ def create_order(request):
     order.list_count = count_page
     order.amount = order.list_count * order.price_per_list
     order.save()
-    return JsonResponse({'num': order.number, 'id':order.id, 'date': datetime.today().strftime("%d-%m-%Y"), 'code': order.code})
+    return JsonResponse({'id':order.id})
