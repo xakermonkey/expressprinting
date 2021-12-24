@@ -45,9 +45,9 @@ def printing(request, pk, date):
             # logger.info(text)
             # text = 'ls'
             # print(text)
-            out = subprocess.run(text, shell=True)
-            print(out.stdout)
-            logger.info(out.stdout)
+            # out = subprocess.run(text, shell=True)
+            # print(out.stdout)
+            # logger.info(out.stdout)
             # subprocess.run(text, stdout=subprocess.PIPE, universal_newlines=True)
     return JsonResponse({'ok': 'ok'})
 
