@@ -4,34 +4,31 @@
 {% block title %}{{ pos.name }}{% endblock %}
 
 {% block content %}
-    <nav class="nav operator">
+    <nav class="nav">
         <div class="nav-left">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
             <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
         </div>
-
     </nav>
-    <div id="alert" style="display: none" >
-        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #F9D2D2;display: flex;
-        justify-content: center;
-        align-items: center;bottom: 2.97%;
-        right: 1.67%;
-        margin: auto;">
+    <div id="alert" style="display: none">
+        <div class="div-alert">
             <label class="semi f-18 black">Заказ не найден</label>
         </div>
     </div>
 
     <div id="in-storage">
-    {% csrf_token %}
-        <div align="center">
+        {% csrf_token %}
+        <div class="pos-name" align="center">
             <h2 class="middle" style="color: black;margin-bottom: 1rem;">Панель заказов<br>
                 {{ pos.name }}</h2>
             <label id="subtext" class="semi f-16 grey">Введите номер заказа</label>
         </div>
-    <div style="display: flex;justify-content: center;flex-direction: column; padding: 0 40%;margin-top: 1rem;">
-        <input style="background: rgba(35, 35, 42, .08);border-radius: 12px;padding: 1rem;width: 100%;border: 0;" type="number" id="code" maxlength="3" class="" placeholder="Например, 001" aria-describedby="basic-addon1">
-        <button id="btn_doc" type="button" disabled class="btn get-code bold">Перейти к заказу</button>
-    </div>
+        <div class="form-order-number">
+            <input style="background: rgba(35, 35, 42, .08);border-radius: 12px;padding: 1rem;width: 100%;border: 0;"
+                   type="number" id="code" maxlength="3" class="" placeholder="Например, 001"
+                   aria-describedby="basic-addon1">
+            <button id="btn_doc" type="button" disabled class="btn get-code bold">Перейти к заказу</button>
+        </div>
     </div>
 {% endblock %}
 
@@ -46,12 +43,12 @@
             var num = ""
             $('#code').keyup(function () {
 
-                if ($(this).val().length < 3){
+                if ($(this).val().length < 3) {
                     $('#btn_doc').attr('disabled', 'disabled')
                     $('#alert').hide()
                 }
 
-                if ($(this).val().length === 3){
+                if ($(this).val().length === 3) {
                     data['num'] = $(this).val()
 
                     $.ajax({
@@ -63,7 +60,7 @@
                                 $('#btn_doc').removeAttr('disabled')
                                 date = data.date
                                 num = data.num
-                            }else{
+                            } else {
                                 $('#btn_doc').attr('disabled', 'disabled')
                                 $('#alert').show()
                             }

@@ -3,36 +3,21 @@
 
 {% block title %}Заказ успешно создан{% endblock %}
 
-
-
-
 {% block content %}
 
-    <style>
-        @media screen and (max-width: 980px) {
-            .nav-title {
-                color: #0C0C0D7A;
-                font-size: 26px;
-                font-weight: 600;
-                margin-left: 12px;
-                width: 240px;
-            }
-        }
-    </style>
     <nav class="nav">
         <div class="nav-left">
-            <a class="" href="{% url 'user' pk=order.pos.id %}"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
-            <div class="nav-title" id="" href="{% url 'user' pk=order.pos.id %}" style="margin-left: 5%">Экспресс печать</div>
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
         </div>
     </nav>
 
-
-    <div style="padding: 4%">
-    <div align="center" style="margin-top: 5%">
-        <h2 class="middle" style="color: black;">Ваш заказ оформлен</h2>
-    </div>
-        <div style="padding: 1rem; background: #FFFFFF;box-shadow: 0 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
-{#            <div class="div-price">#}
+    <div class="main-div-user-panel">
+        <div style="padding: 4%">
+            <div align="center" style="margin-top: 5%">
+                <h2 class="middle" style="color: black;">Ваш заказ оформлен</h2>
+            </div>
+            <div style="padding: 1rem; background: #FFFFFF;box-shadow: 0 16px 32px -16px rgb(0 0 0 / 8%);border-radius: 16px;">
                 <div class="div-price-item">
                     <label class="semi f-18 black">Общее количество страниц</label>
                     <h2 class="middle" style="color: black;">{{ order.list_count }}</h2>
@@ -46,55 +31,21 @@
                     <label class="semi f-18 black">Итоговая стоимость</label>
                     <h2 class="middle" style="color: black;">{{ order.amount }} ₽</h2>
                 </div>
-{#            </div>#}
+            </div>
         </div>
-    </div>
 
-    <div align="center" style="margin-top: 5%">
-        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Номер Вашего заказа</h2>
-        <label class="semi f-16 grey">Назовите его оператору</label>
-    </div>
-    <style>
-        .input-group {
-            min-height: 58px;
-        }
-
-        .form-control {
-            background-color: #23232A14;
-            border-radius: 12px;
-        }
-
-        .input-group-text {
-            border: 0;
-            border-radius: 12px;
-            background-color: #23232A14;
-        }
-
-        .div-code {
-            padding: 5%;
-            background: #FFFFFF;
-            box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);
-            border-radius: 16px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .code {
-            padding: 5%;
-            border-radius: 12px;
-            margin-right: 8%;
-            background-color: #23232A14;
-            color: black;
-        }
-    </style>
-    <div style="padding: 4%">
-        <div class="div-code">
-            <h2 class="middle code">{{ code.0 }}</h2>
-            <h2 class="middle code">{{ code.1 }}</h2>
-{#            <h2 class="middle code">{{ code.2 }}</h2>#}
-            <h2 class="middle code" style="margin-right: 0">{{ code.2 }}</h2>
+        <div align="center" style="margin-top: 5%">
+            <h2 class="middle" style="color: black;margin-bottom: 1rem;">Номер Вашего заказа</h2>
+            <label class="semi f-16 grey">Назовите его оператору</label>
         </div>
-        <button class="btn btn-next bold" id="home" type="button"  style="margin-top: 10%">На главную</button>
+        <div style="padding: 4%">
+            <div class="div-code">
+                <h2 class="middle code">{{ code.0 }}</h2>
+                <h2 class="middle code">{{ code.1 }}</h2>
+                <h2 class="middle code" style="margin-right: 0">{{ code.2 }}</h2>
+            </div>
+            <button class="btn btn-next bold" id="home" type="button" style="margin-top: 10%">На главную</button>
+        </div>
     </div>
 {% endblock %}
 
@@ -102,11 +53,12 @@
 {% block script %}
 
     <script>
-    jQuery(function () {
-        $('#home').click(function () {
-            document.location.href = document.location.origin + '/user/' + {{ order.pos.id }}
+        jQuery(function () {
+            $('#home').click(function () {
+                document.location.href = document.location.origin + '/user/' +
+                {{ order.pos.id }}
+            });
         });
-    });
     </script>
 
 {% endblock %}

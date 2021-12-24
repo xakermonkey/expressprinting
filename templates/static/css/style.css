@@ -771,11 +771,6 @@ input[type=number]::-webkit-outer-spin-button {
     /*margin-top: 1rem;*/
 }
 
-.div-order-composition {
-    display: flex;
-    align-items: flex-start;
-}
-
 .div-order-info .btn {
     padding: 1rem;
     width: 100%;
@@ -809,6 +804,14 @@ input[type=number]::-webkit-outer-spin-button {
 
 /*========================ExpressPrinting====================================*/
 /*operator html*/
+.form-order-number {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40%;
+    margin-top: 1rem;
+}
+
 .operator .nav-title {
     width: 320px;
     color: #0C0C0D7A;
@@ -816,16 +819,66 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 600;
 }
 
+.bag24 {
+    width: 104px;
+}
+
+.arrow-back {
+    width: 60px;
+}
+
+.main-div-print {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5%;
+    width: 100%
+}
+
+.div-order-composition {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2.5%;
+    width: 50%;
+    max-width: 576px
+}
+
+.div-alert {
+    position: absolute;
+    border-radius: 12px;
+    width: 22.09%;
+    height: 6.49%;
+    background: #F9D2D2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 2.97%;
+    right: 1.67%;
+    margin: auto;
+}
+
+/*end operator html*/
+
 
 /*user html*/
-@media screen and (max-width: 980px) {
-    .nav-title {
-        color: #0C0C0D7A;
-        font-size: 26px;
-        font-weight: 600;
-        margin-left: 12px;
-        width: 240px;
-    }
+.div-code {
+    padding: 5%;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgb(0 0 0 / 8%);
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.code {
+    padding: 5%;
+    border-radius: 12px;
+    margin-right: 8%;
+    background-color: #23232A14;
+    color: black;
+}
+
+.main-div-user-panel {
+    padding: 0 30%;
 }
 
 .div-white-background {
@@ -847,6 +900,71 @@ input[type=number]::-webkit-outer-spin-button {
     border: 0;
     border-radius: 12px;
     background-color: #23232A14;
+}
+
+/*end user html*/
+
+@media screen and (max-width: 980px) {
+    .form-order-number {
+        padding: 0 5%;
+    }
+
+    .pos-name {
+        margin-top: 15%;
+    }
+
+    .main-div-print {
+        flex-direction: column;
+        padding: 0 4%;
+    }
+
+    .div-price {
+        width: 100%;
+        padding: 5.56%;
+        margin-top: 6.96%;
+        max-width: 100%;
+    }
+
+    .div-order-composition {
+        display: block;
+        margin-right: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .div-alert {
+        position: absolute;
+        border-radius: 12px;
+        width: auto;
+        height: 6.49%;
+        background: #F9D2D2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 2.97%;
+        right: 1.67%;
+        margin: auto;
+        padding: 0 6%;
+    }
+
+
+    /*==================================================*/
+    .main-div-user-panel {
+        padding: 0;
+    }
+
+    .nav-title {
+        color: #0C0C0D7A;
+        font-size: 21px;
+        font-weight: 600;
+        margin-left: 12px;
+        width: 200px;
+    }
+
+    .bag24 {
+        width: 80px;
+    }
+
 }
 
 /*============================================================*/

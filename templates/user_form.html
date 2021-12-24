@@ -11,43 +11,44 @@
         </div>
     </nav>
 
-    <div align="center" style="margin-top: 5%">
-        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать в {{ pos.name }}</h2>
-    </div>
-    <div style="padding: 4%">
-        <label class="semi f-16 grey">Тариф</label>
-        <div class="div-white-background" style="padding: 1rem;">
-            <div class="div-price-item" style="margin-bottom: 0">
-                <h2 class="middle" style="color: black;">{{ rate.price_per_list }} ₽ страница</h2>
-            </div>
+    <div class="main-div-user-panel">
+        <div align="center" style="margin-top: 5%">
+            <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать в {{ pos.name }}</h2>
         </div>
-    </div>
-    <div style="padding: 4%">
-        <div class="div-white-background" style="padding: 5%;">
-            <div id="file-input">
-                {% csrf_token %}
-                <div id="file1">
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" accept="application/pdf,application/msword,
-  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02"
-                               style="padding: 1rem 0.75rem;">
-                    </div>
-                    <div class="input-group mb-3 ls">
-                        <span class="input-group-text">Количество копий</span>
-                        <input type="text" name="copy1" value="1" class="form-control">
-                    </div>
+        <div style="padding: 0 4%;margin-top: 3.29%">
+            <label class="semi f-16 grey">Тариф</label>
+            <div class="div-white-background" style="padding: 1rem;">
+                <div class="div-price-item" style="margin-bottom: 0">
+                    <h2 class="middle" style="color: black;">{{ rate.price_per_list }} ₽ страница</h2>
                 </div>
             </div>
-            <button id="send" disabled class="btn btn-next bold">Отправить на печать</button>
         </div>
-    </div>
+        <div style="padding: 0 4%;margin-top: 3.29%">
+            <div class="div-white-background" style="padding: 5%;">
+                <div id="file-input">
+                    {% csrf_token %}
+                    <div id="file1">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" accept="application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document" name="file1" id="inputGroupFile02"
+                                   style="padding: 1rem 0.75rem;">
+                        </div>
+                        <div class="input-group mb-3 ls">
+                            <span class="input-group-text">Количество копий</span>
+                            <input type="text" name="copy1" value="1" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <button id="send" disabled class="btn btn-next bold">Отправить на печать</button>
+            </div>
+        </div>
 
-    <div style="display: flex;flex-direction: column;padding: 4%;">
-        {#================================================== Схема==================#}
-        <div align="center" class="div-choice-delivery-company">
-            {#            <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>#}
-            <label class="bold f-16 black" style="margin-bottom: 4.64%">Местоположение</label>
-            <img width="100%" src="{{ pos.scheme_img.url }}">
+        <div style="display: flex;flex-direction: column;padding: 0 4%;margin-top: 3.29%;">
+            {#================================================== Схема==================#}
+            <div align="center" class="div-choice-delivery-company">
+                <label class="bold f-16 black" style="margin-bottom: 4.64%">Местоположение</label>
+                <img width="100%" src="{{ pos.scheme_img.url }}">
+            </div>
         </div>
     </div>
 
@@ -60,9 +61,6 @@
         jQuery(function () {
             var massFile = {}
             var count = 1
-            {#var socket = new WebSocket(#}
-            {#    "wss://" + window.location.host + "/ws/" + {{ pos.id }}#}
-            {#);#}
             $('body').on('change', 'input[type="file"]', function () {
 
                 var name = $(this).attr('name')

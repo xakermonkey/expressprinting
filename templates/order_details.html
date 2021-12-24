@@ -1,45 +1,44 @@
 {% extends 'index.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}Детали заказа{% endblock %}
 
 {% block content %}
-    <nav class="nav operator">
+    <nav class="nav">
         <div class="nav-left">
-            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
-            <div class="nav-title" id="" href="{% url 'operator' pk=order.pos.id %}" style="margin-left: 5%">Экспресс печать</div>
-            <a href="{% url 'operator' pk=order.pos.id %}"  ><img src="{% static 'images/arrow_back.svg' %}"
-                                                                     style="width: 60px; "></a>
+            <a class="" href="#"><img class="bag24" src="{% static 'images/header.svg' %}" style=""></a>
+            <div class="nav-title">Экспресс печать</div>
+            <a href="{% url 'operator' pk=order.pos.id %}"><img class="arrow-back"
+                                                                src="{% static 'images/arrow_back.svg' %}"></a>
         </div>
     </nav>
     <div id="alert" style="display: none">
-    <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #B3E5C4;display: flex;
+        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #B3E5C4;display: flex;
     justify-content: center;
     align-items: center;bottom: 2.97%;
     right: 1.67%;
     margin: auto;">
-        <label class="semi f-18 black">Отправлено на печать</label>
-    </div>
+            <label class="semi f-18 black">Отправлено на печать</label>
+        </div>
     </div>
 
     <div id="pick-up-ls" style="display: block">
-        <div align="center" style="margin-top: 0.94%">
+        <div class="pos-name" align="center">
             <h2 class="middle" style="color: black;">Печать</h2>
         </div>
-
-        <div style="display: flex;justify-content: center;margin-top: 2.5%;width: 100%">
-            <div style="display: flex;flex-direction: column;margin-right: 2.5%;width: 50%;max-width: 576px">
+        <div class="main-div-print">
+            <div class="div-order-composition">
                 <div align="center" class="div-choice-delivery-company" style="align-items: flex-start">
                     <label class="semi f-16 grey">Состав заказа</label>
                     {% for doc in order.documents.all %}
                         <div class="div-input">
-                        <div class=""
-                             style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
-                            <div style="display: flex; flex-direction: column;align-items: flex-start">
-                                <label class="semi f-18 black">{{ doc.name }}</label>
-                                <label class="semi f-16 grey">Количество копий: {{ doc.copy }}</label></div>
+                            <div class=""
+                                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                                <div style="display: flex; flex-direction: column;align-items: flex-start">
+                                    <label class="semi f-18 black">{{ doc.name }}</label>
+                                    <label class="semi f-16 grey">Количество копий: {{ doc.copy }}</label></div>
+                            </div>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -59,9 +58,9 @@
                 </div>
                 {% csrf_token %}
                 <div style="display: flex">
-                <button type="button" id="printing" class="btn bold" style="margin-right: 4.7%">Печать</button>
-                <a id="pay-pick-up-ls" class="btn bold">Завершить</a>
-                    </div>
+                    <button type="button" id="printing" class="btn bold" style="margin-right: 4.7%">Печать</button>
+                    <a id="pay-pick-up-ls" class="btn bold">Завершить</a>
+                </div>
             </div>
         </div>
     </div>
@@ -72,44 +71,44 @@
 
 {% block script %}
     <script>
-    jQuery(function () {
+        jQuery(function () {
 
-        const dis = function () {
-            $('#printing').removeAttr('disabled')
-            $('#alert').hide()
-        }
+            const dis = function () {
+                $('#printing').removeAttr('disabled')
+                $('#alert').hide()
+            }
 
-        var data = {"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()}
+            var data = {"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()}
             data['id'] = {{ order.id }}
-        $('#pay-pick-up-ls').click(function () {
+                $('#pay-pick-up-ls').click(function () {
 
-            $.ajax({
-                    type: "POST",
-                    url: document.location.origin + '/operator/success_print',
-                    data: data,
-                    dataType: 'json',
-                    success: function (data) {
+                    $.ajax({
+                        type: "POST",
+                        url: document.location.origin + '/operator/success_print',
+                        data: data,
+                        dataType: 'json',
+                        success: function (data) {
 
-                        var url = document.location.origin + '/operator/' + {{ order.pos.id }};
-                        document.location.href = url
-                    }
+                            var url = document.location.origin + '/operator/' + {{ order.pos.id }};
+                            document.location.href = url
+                        }
+                    });
                 });
-        });
-        $('#printing').click(function () {
-            $.ajax({
+            $('#printing').click(function () {
+                $.ajax({
                     type: "POST",
                     url: 'printing',
                     data: data,
                     dataType: 'json',
                     success: function (data) {
-                        if (data.ok === 'ok'){
-                            $('#printing').attr('disabled','disabled')
+                        if (data.ok === 'ok') {
+                            $('#printing').attr('disabled', 'disabled')
                             $('#alert').show()
                             setTimeout(dis, 10000);
                         }
                     }
                 });
-        });
-    })
+            });
+        })
     </script>
 {% endblock %}

@@ -4,7 +4,11 @@ from django.http import JsonResponse
 from datetime import datetime
 import PyPDF2
 import os
-from zipfile import ZipFile
+# from zipfile import ZipFile
+import subprocess
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def userForm(request, pk):
@@ -21,13 +25,45 @@ def success_create(request, pk, pk_order):
 def pages_count(path):
     return PyPDF2.PdfFileReader(open(path, "rb")).numPages
 
+def doc_to_pdf(path):
+    doc = path[len(path) - 4:]
+    docx = path[len(path) - 5:]
+    rtf = path[len(path) - 4:]
+    convert = f'soffice --headless --convert-to pdf '
+    if doc == '.doc':
+        convert += ("\"/home/a_simakov/expressprinting/" + path + "\"")
+        convert += (" --outdir \"" + "/".join(path.split('/')[:-1]) + "\"")
+        logger.info(convert)
+        out = subprocess.run(convert, shell=True)
+        logger.info(out.stdout)
+        pdf_path = path[:len(path) - 4] + ".pdf"
+        logger.info(pdf_path)
+        return pdf_path
+    if docx == '.docx':
+        convert += ("\"/home/a_simakov/expressprinting/" + path + "\"")
+        convert += (" --outdir \"" + "/".join(path.split('/')[:-1]) + "\"")
+        logger.info(convert)
+        out = subprocess.run(convert, shell=True)
+        logger.info(out.stdout)
+        pdf_path = path[:len(path) - 5] + ".pdf"
+        logger.info(pdf_path)
+        return pdf_path
+    if rtf == '.rtf':
+        convert += ("\"/home/a_simakov/expressprinting/" + path + "\"")
+        convert += (" --outdir \"" + "/".join(path.split('/')[:-1]) + "\"")
+        logger.info(convert)
+        out = subprocess.run(convert, shell=True)
+        logger.info(out.stdout)
+        pdf_path = path[:len(path) - 4] + ".pdf"
+        logger.info(pdf_path)
+        return pdf_path
 
-def pages_count_word(path):
-    z = ZipFile(path)
-    text = str(z.read('docProps/app.xml'))
-    page = text.find('<Pages>')
-    end = text.find('</Pages>')
-    return int(text[page + 7:end])
+# def pages_count_word(path):
+#     z = ZipFile(path)
+#     text = str(z.read('docProps/app.xml'))
+#     page = text.find('<Pages>')
+#     end = text.find('</Pages>')
+#     return int(text[page + 7:end])
 
 
 def read_heandler(f, date, num):
@@ -58,14 +94,17 @@ def create_order(request):
         copy = int(request.POST.get('copy' + i[4:]))
         doc = Doc.objects.create(copy=copy)
         path = read_heandler(request.FILES.get(i), order.date_create, order.number)
-        doc.file.name = path
+        doc.file.name = path[:len(path) - 4] + ".pdf"
         doc.name = path.split('/')[-1]
         doc.stati_path = "/".join(path.split('/')[2:])
         doc.save()
         if path.split('.')[-1] == 'pdf':
             count_page += pages_count(path) * copy
         if path.split('.')[-1] == 'doc' or path.split('.')[-1] == 'docx' or path.split('.')[-1] == 'rtf':
-            count_page += pages_count_word(path) * copy
+            pdf_path = doc_to_pdf(path)
+            count_page += pages_count(pdf_path) * copy
+        # if path.split('.')[-1] == 'docx' or path.split('.')[-1] == 'rtf':
+        #     count_page += pages_count_word(path) * copy
         order.documents.add(doc)
     order.list_count = count_page
     order.amount = order.list_count * order.price_per_list
