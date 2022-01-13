@@ -4,10 +4,10 @@ from django.urls import path
 
 
 urlpatterns = [
-    path("<int:pk>", operatorForm, name='operator'),
-    path("get_order", get_order, name='get_order'),
-    path("<int:pk>/orderdetails/<str:date>/printing", printing, name='printing'),
-    path("<int:pk>/orderdetails/<str:date>/<str:num>", orderDetails, name='orderdetails'),
-    path("success_print", success_print, name='success'),
+    path("<str:slug>", operatorForm, name='operator'),
+    path("<str:slug>/get_order", get_order, name='get_order'),
+    path("<str:slug>/orderdetails/<str:date>/printing", printing, name='printing'),
+    path("<str:slug>/orderdetails/<str:date>/<str:num>", orderDetails, name='orderdetails'),
+    path("<str:slug>/success_print", success_print, name='success'),
 
 ]

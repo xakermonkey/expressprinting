@@ -55,8 +55,7 @@
     <script>
         jQuery(function () {
             $('#home').click(function () {
-                document.location.href = document.location.origin + '/user/' +
-                {{ order.pos.id }}
+                document.location.href = document.location.origin + '/user/{{ order.pos.slug }}';
             });
         });
     </script>

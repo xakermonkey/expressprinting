@@ -52,7 +52,7 @@
                     data['num'] = $(this).val()
 
                     $.ajax({
-                        url: 'get_order',
+                        url: '{{ pos.slug }}/get_order',
                         method: 'POST',
                         data: data,
                         success: function (data) {

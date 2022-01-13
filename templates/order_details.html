@@ -8,12 +8,12 @@
         <div class="nav-left">
             <a class="" href="#"><img class="bag24" src="{% static 'images/header.svg' %}" style=""></a>
             <div class="nav-title">Экспресс печать</div>
-            <a href="{% url 'operator' pk=order.pos.id %}"><img class="arrow-back"
+            <a href="{% url 'operator' slug=order.pos.slug %}"><img class="arrow-back"
                                                                 src="{% static 'images/arrow_back.svg' %}"></a>
         </div>
     </nav>
     <div id="alert" style="display: none">
-        <div class="div-alert">
+        <div class="div-alert" style="background: #B3E5C4" >
             <label class="semi f-18 black">Отправлено на печать</label>
         </div>
     </div>
@@ -80,12 +80,12 @@
 
                     $.ajax({
                         type: "POST",
-                        url: document.location.origin + '/operator/success_print',
+                        url: document.location.origin + '/operator/{{ order.pos.slug }}/success_print',
                         data: data,
                         dataType: 'json',
                         success: function (data) {
 
-                            var url = document.location.origin + '/operator/' + {{ order.pos.id }};
+                            var url = document.location.origin + '/operator/{{ order.pos.slug }}';
                             document.location.href = url
                         }
                     });

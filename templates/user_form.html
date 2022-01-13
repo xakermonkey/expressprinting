@@ -11,6 +11,12 @@
         </div>
     </nav>
 
+    <div id="alert" style="display: none">
+        <div class="div-alert">
+            <label class="semi f-18 black">Превышен максимальный объем файла</label>
+        </div>
+    </div>
+
     <div class="main-div-user-panel">
         <div align="center" style="margin-top: 5%">
             <h2 class="middle" style="color: black;margin-bottom: 1rem;">Экспресс печать в {{ pos.name }}</h2>
@@ -24,9 +30,10 @@
             </div>
         </div>
         <div style="padding: 0 4%;margin-top: 3.29%">
+            {% csrf_token %}
             <div class="div-white-background" style="padding: 5%;">
                 <div id="file-input">
-                    {% csrf_token %}
+
                     <div id="file1">
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" accept="application/pdf,application/msword,
@@ -39,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <button id="send" disabled class="btn btn-next bold">Отправить на печать</button>
+                <button id="send" disabled class="btn btn-next bold"><img height="20" id="load" style="display: none" src="{% static 'images/loading.gif' %}"><span id="title_btn">Отправить на печать</span></button>
             </div>
         </div>
 
@@ -94,23 +101,30 @@
             });
 
             $('#send').click(function () {
+
+                $('#title_btn').hide()
+                $('#load').show();
+                $(this).attr('disabled', 'disabled')
+                {#var data = new Object({"csrfmiddlewaretoken": $('input[name="csrfmiddlewaretoken"]').val()});#}
                 var formData = new FormData();
                 for (var key in massFile) {
                     console.log($('input[name="' + key + '"]')[0].files[0])
-                    formData.append(key, $('input[name="' + key + '"]')[0].files[0])
+                    {#data[key]=$('input[name="' + key + '"]')[0].files[0];#}
+                    formData.append(key, $('input[name="' + key + '"]')[0].files[0]);
                 }
 
                 $('input[type="text"]').each(function () {
-                    formData.append($(this).attr('name'), $(this).val())
+                    {#data[$(this).attr('name')]= $(this).val();#}
+                    formData.append($(this).attr('name'), $(this).val());
                 });
 
+                formData.append('pos', {{ pos.id }});
                 formData.append("csrfmiddlewaretoken", $('input[name="csrfmiddlewaretoken"]').val())
-
-                formData.append('pos', {{ pos.id }})
-
+                {#data['pos'] = {{ pos.id }};#}
+                console.log(formData.get('pos'))
                 $.ajax({
                     type: "POST",
-                    url: 'create_order',
+                    url: '{{ pos.slug }}/create_order',
                     cache: false,
                     contentType: false,
                     processData: false,
@@ -118,8 +132,14 @@
                     dataType: 'json',
                     success: function (data) {
                         {#socket.send(JSON.stringify(data));#}
-                        document.location.href = document.location.origin + '/user/' + {{ pos.id }} +'/success_create/' + data.id
-                    }
+                        document.location.href = document.location.origin + '/user/{{ pos.slug }}/success_create/' + data.id
+                    },
+                    error: function () {
+                        $('#title_btn').show();
+                        $('#load').hide();
+                        $('#alert').show()
+                        $(this).removeAttr('disabled')
+                     } 
                 });
             });
         });

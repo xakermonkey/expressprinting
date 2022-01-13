@@ -4,26 +4,23 @@ from django.http import JsonResponse
 from datetime import datetime
 import PyPDF2
 import os
-# from zipfile import ZipFile
-import subprocess
-import logging
-
-logger = logging.getLogger(__name__)
+from zipfile import ZipFile
 
 
-def userForm(request, pk):
-    pos = POS.objects.get(id=pk)
+def userForm(request, slug):
+    pos = POS.objects.get(slug=slug)
     tarif = Rates.objects.filter(pos=pos).order_by('date').last()
     return render(request, 'user_form.html', {'pos': pos, 'rate':tarif})
 
 
-def success_create(request, pk, pk_order):
+def success_create(request, slug, pk_order):
     order = Order.objects.get(id=pk_order)
     return render(request, 'success_create.html', {'order': order, 'code': str(order.number)})
 
 
 def pages_count(path):
     return PyPDF2.PdfFileReader(open(path, "rb")).numPages
+
 
 def doc_to_pdf(path):
     doc = path[len(path) - 4:]
@@ -58,14 +55,6 @@ def doc_to_pdf(path):
         logger.info(pdf_path)
         return pdf_path
 
-# def pages_count_word(path):
-#     z = ZipFile(path)
-#     text = str(z.read('docProps/app.xml'))
-#     page = text.find('<Pages>')
-#     end = text.find('</Pages>')
-#     return int(text[page + 7:end])
-
-
 def read_heandler(f, date, num):
     if not date.strftime("%d-%m-%Y") in os.listdir("templates/static/orders/"):
         os.mkdir(f'templates/static/orders/{date.strftime("%d-%m-%Y")}')
@@ -80,7 +69,7 @@ def read_heandler(f, date, num):
 
 
 
-def create_order(request):
+def create_order(request, slug):
     pos = POS.objects.get(id=request.POST.get('pos'))
     rate = Rates.objects.filter(pos=pos).order_by('date').last()
     num = str(Order.objects.filter(date_create=datetime.today()).count() + 1)
@@ -103,8 +92,6 @@ def create_order(request):
         if path.split('.')[-1] == 'doc' or path.split('.')[-1] == 'docx' or path.split('.')[-1] == 'rtf':
             pdf_path = doc_to_pdf(path)
             count_page += pages_count(pdf_path) * copy
-        # if path.split('.')[-1] == 'docx' or path.split('.')[-1] == 'rtf':
-        #     count_page += pages_count_word(path) * copy
         order.documents.add(doc)
     order.list_count = count_page
     order.amount = order.list_count * order.price_per_list

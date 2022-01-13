@@ -1,9 +1,10 @@
+import logging
 from django.db import models
-
+import subprocess
 # Create your models here.
 
 
-
+logger = logging.getLogger(__name__)
 
 
 class POS(models.Model):
@@ -11,7 +12,14 @@ class POS(models.Model):
     ip = models.CharField(max_length=255, verbose_name="IP принтера")
     name_printer = models.CharField(max_length=500, verbose_name='Название принтера')
     scheme_img = models.ImageField(upload_to='pos', blank=True, null=True, verbose_name="Схема")
+    slug = models.CharField(max_length=255, verbose_name="Ссылка", blank=True, null=True, unique=True)
 
+    def save(self, *args, **kwargs):
+        out = subprocess.run(f"sudo lpadmin -p {self.name_printer} -E -v ipp://{self.ip}:23684/ipp/print -m everywhere",
+                       shell=True)
+        logger.info(f"sudo lpadmin -p {self.name_printer} -E -v ipp://{self.ip}:23684/ipp/print -m everywhere")
+        super(POS, self).save(*args, **kwargs)
+ 
     def __str__(self):
         return self.name
 
