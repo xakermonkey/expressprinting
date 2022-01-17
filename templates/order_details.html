@@ -6,10 +6,9 @@
 {% block content %}
     <nav class="nav">
         <div class="nav-left">
-            <a class="" href="#"><img class="bag24" src="{% static 'images/header.svg' %}" style=""></a>
-            <div class="nav-title">Экспресс печать</div>
-            <a href="{% url 'operator' slug=order.pos.slug %}"><img class="arrow-back"
-                                                                src="{% static 'images/arrow_back.svg' %}"></a>
+            <a href="{% url 'operator' slug=order.pos.slug %}"><img width="100" src="{% static 'images/logo.png' %}"></a>
+            <a href="{% url 'operator' slug=order.pos.slug %}"><div class="nav-title">Экспресс печать</div></a>
+            <a href="{% url 'operator' slug=order.pos.slug %}"><img class="arrow-back" src="{% static 'images/arrow_back.svg' %}"></a>
         </div>
     </nav>
     <div id="alert" style="display: none">
@@ -55,7 +54,7 @@
                 {% csrf_token %}
                 <div style="display: flex">
                     <button type="button" id="printing" class="btn bold" style="margin-right: 4.7%">Печать</button>
-                    <a id="pay-pick-up-ls" class="btn bold">Завершить</a>
+                    <button type="button" id="pay-pick-up-ls" class="btn bold">Завершить</button>
                 </div>
             </div>
         </div>

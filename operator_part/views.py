@@ -3,10 +3,15 @@ from .models import *
 from django.http import JsonResponse
 from datetime import datetime
 import subprocess
+from .cups_connection import set_connection_cups
+
+
+
+
+
 
 def operatorForm(request, slug):
     pos = POS.objects.get(slug=slug)
-
     return render(request, 'operator_form.html', {'pos': pos})
 
 def orderDetails(request, slug, date, num):
@@ -35,15 +40,18 @@ def get_order(request, slug):
 
 def printing(request, slug, date):
     order = Order.objects.get(id=request.POST.get('id'))
+    con = set_connection_cups()
     for i in order.documents.all():
         for j in range(i.copy):
-            text = f'lp -d {order.pos.name_printer} '
-            text += ("\"/home/a_simakov/expressprinting/" + i.file.name + "\"")
-            logger.info(text)
-            # text = 'ls'
-            # print(text)
-            out = subprocess.run(text, shell=True)
-            # print(out.stdout)
-            logger.info(out.stdout)
-            # subprocess.run(text, stdout=subprocess.PIPE, universal_newlines=True)
+            job_id = con.printFile(order.pos.name_printer, f"./{i.file.name}", "Express Print", {})
+            con.cancelJob(job_id)
+            # text = f'lp -d {order.pos.name_printer} '
+            # text += ("\"/opt/expressprinting/" + i.file.name + "\"")
+            # logger.info(text)
+            # # text = 'ls'
+            # # print(text)
+            # out = subprocess.run(text, shell=True)
+            # # print(out.stdout)
+            # logger.info(out.stdout)
+            # # subprocess.run(text, stdout=subprocess.PIPE, universal_newlines=True)
     return JsonResponse({'ok': 'ok'})

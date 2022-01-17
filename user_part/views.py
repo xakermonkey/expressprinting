@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from datetime import datetime
 import PyPDF2
 import os
-from zipfile import ZipFile
+import subprocess
 
 
 def userForm(request, slug):
@@ -28,7 +28,7 @@ def doc_to_pdf(path):
     rtf = path[len(path) - 4:]
     convert = f'soffice --headless --convert-to pdf '
     if doc == '.doc':
-        convert += ("\"/home/a_simakov/expressprinting/" + path + "\"")
+        convert += ("\"/opt/expressprinting/" + path + "\"")
         convert += (" --outdir \"" + "/".join(path.split('/')[:-1]) + "\"")
         logger.info(convert)
         out = subprocess.run(convert, shell=True)
@@ -37,7 +37,7 @@ def doc_to_pdf(path):
         logger.info(pdf_path)
         return pdf_path
     if docx == '.docx':
-        convert += ("\"/home/a_simakov/expressprinting/" + path + "\"")
+        convert += ("\"/opt/expressprinting/" + path + "\"")
         convert += (" --outdir \"" + "/".join(path.split('/')[:-1]) + "\"")
         logger.info(convert)
         out = subprocess.run(convert, shell=True)
@@ -46,7 +46,7 @@ def doc_to_pdf(path):
         logger.info(pdf_path)
         return pdf_path
     if rtf == '.rtf':
-        convert += ("\"/home/a_simakov/expressprinting/" + path + "\"")
+        convert += ("\"/opt/expressprinting/" + path + "\"")
         convert += (" --outdir \"" + "/".join(path.split('/')[:-1]) + "\"")
         logger.info(convert)
         out = subprocess.run(convert, shell=True)

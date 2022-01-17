@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-cdy=0_92x%ve3a%k&3xk!d7fb8koy4+asrxz@w^q6zzdrw5*mn
 # SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ['*']
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user_part',
-    'rest_framework', 
+    'rest_framework',
+    'rest_framework.authtoken',
     'operator_part',
 ]
 
@@ -81,30 +82,23 @@ ASGI_APPLICATION = 'expressprinting.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': env.db()
+# }
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'expressprinting',
-#         'USER': 'simakov',
-#         'PASSWORD': '10109876',
-#         'HOST': '127.0.0.1',
-#         'PORT': '',
+#         'USER': 'admin',
+#         'PASSWORD': 'admin',
+#         'HOST': 'expressprinting_db',
+#         'PORT': '5432',
 #     }
 # }
 
@@ -156,8 +150,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'templates/media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated'
     ]
 }
 

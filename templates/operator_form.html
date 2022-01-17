@@ -6,8 +6,8 @@
 {% block content %}
     <nav class="nav">
         <div class="nav-left">
-            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
-            <div class="nav-title" id="" href="#" style="margin-left: 5%">Экспресс печать</div>
+            <a href="{% url 'operator' slug=pos.slug %}"><img width="100" src="{% static 'images/logo.png' %}"></a>
+            <a href="{% url 'operator' slug=pos.slug %}"><div class="nav-title" style="margin-left: 5%">Экспресс печать</div></a>
         </div>
     </nav>
     <div id="alert" style="display: none">

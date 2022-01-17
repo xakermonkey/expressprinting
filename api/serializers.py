@@ -12,6 +12,15 @@ class SerializerOrders(serializers.ModelSerializer):
         model = Order
         exclude = ('id', 'documents')
 
+class SerializerStaffWork(serializers.ModelSerializer):
+    """Сериализатор заказов сотрудников"""
+
+    pos = serializers.SlugRelatedField(slug_field='name', read_only=True)
+
+    class Meta:
+        model = StaffOrder
+        exclude = ('id', 'documents')
+
 
 class SerializerPOS(serializers.ModelSerializer):
 
